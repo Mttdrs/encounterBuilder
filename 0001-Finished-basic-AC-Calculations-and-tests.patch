@@ -1,0 +1,6188 @@
+From 0be3639f7ce5188d58e12bd840afb553db21758a Mon Sep 17 00:00:00 2001
+From: matteo2 <matteo2@Xubuntu.myguest.virtualbox.org>
+Date: Mon, 3 Mar 2025 17:31:52 +0100
+Subject: [PATCH] Finished basic AC Calculations and tests
+
+---
+ .idea/.gitignore                              |   3 +
+ .idea/encounterBuilder.iml                    |  12 +
+ .../inspectionProfiles/profiles_settings.xml  |   6 +
+ .idea/misc.xml                                |   7 +
+ .idea/modules.xml                             |   8 +
+ .idea/vcs.xml                                 |   6 +
+ src/db/__init__.py                            |   0
+ src/db/__pycache__/__init__.cpython-312.pyc   | Bin 0 -> 164 bytes
+ src/db/__pycache__/dbConst.cpython-312.pyc    | Bin 0 -> 228 bytes
+ src/db/dbConst.py                             |   1 +
+ src/db/dbInitializer.py                       |  16 +
+ src/db/encounterBuilder.db                    | Bin 0 -> 81920 bytes
+ src/db/initDB.sql                             | 106 ++
+ src/entities/__init__.py                      |   0
+ .../__pycache__/__init__.cpython-312.pyc      | Bin 0 -> 170 bytes
+ src/entities/actors/__init__.py               |   0
+ .../__pycache__/__init__.cpython-312.pyc      | Bin 0 -> 177 bytes
+ .../actors/__pycache__/actor.cpython-312.pyc  | Bin 0 -> 9162 bytes
+ src/entities/actors/actor.py                  | 157 +++
+ src/entities/items/__init__.py                |   0
+ src/entities/items/item.py                    |   0
+ ...ctor-actestbarbarian-wkH1AEJQDSmupbQY.json | 883 ++++++++++++++++
+ ...vtt-Actor-actestbard-5pRcYzainoOCcrrx.json | 883 ++++++++++++++++
+ ...efault_equippedarmor-0QfxTPkPy7AAdang.json | 973 ++++++++++++++++++
+ ...r_draconicresilience-MG4tI0P0fVfZmxJj.json | 883 ++++++++++++++++
+ ..._draconicresilience2-MG4tI0P0fVfZmxJj.json | 883 ++++++++++++++++
+ ...vtt-Actor-actestmonk-wMDAYUvJlGJqaUG9.json | 883 ++++++++++++++++
+ src/tests/dbTest.py                           |  59 ++
+ src/web_scraper/scrapetest.py                 |  25 +
+ 29 files changed, 5794 insertions(+)
+ create mode 100644 .idea/.gitignore
+ create mode 100644 .idea/encounterBuilder.iml
+ create mode 100644 .idea/inspectionProfiles/profiles_settings.xml
+ create mode 100644 .idea/misc.xml
+ create mode 100644 .idea/modules.xml
+ create mode 100644 .idea/vcs.xml
+ create mode 100644 src/db/__init__.py
+ create mode 100644 src/db/__pycache__/__init__.cpython-312.pyc
+ create mode 100644 src/db/__pycache__/dbConst.cpython-312.pyc
+ create mode 100644 src/db/dbConst.py
+ create mode 100644 src/db/dbInitializer.py
+ create mode 100644 src/db/encounterBuilder.db
+ create mode 100644 src/db/initDB.sql
+ create mode 100644 src/entities/__init__.py
+ create mode 100644 src/entities/__pycache__/__init__.cpython-312.pyc
+ create mode 100644 src/entities/actors/__init__.py
+ create mode 100644 src/entities/actors/__pycache__/__init__.cpython-312.pyc
+ create mode 100644 src/entities/actors/__pycache__/actor.cpython-312.pyc
+ create mode 100644 src/entities/actors/actor.py
+ create mode 100644 src/entities/items/__init__.py
+ create mode 100644 src/entities/items/item.py
+ create mode 100644 src/resources/playercharacters/ACTest/fvtt-Actor-actestbarbarian-wkH1AEJQDSmupbQY.json
+ create mode 100644 src/resources/playercharacters/ACTest/fvtt-Actor-actestbard-5pRcYzainoOCcrrx.json
+ create mode 100644 src/resources/playercharacters/ACTest/fvtt-Actor-actestdefault_equippedarmor-0QfxTPkPy7AAdang.json
+ create mode 100644 src/resources/playercharacters/ACTest/fvtt-Actor-actestmagearmor_draconicresilience-MG4tI0P0fVfZmxJj.json
+ create mode 100644 src/resources/playercharacters/ACTest/fvtt-Actor-actestmagearmor_draconicresilience2-MG4tI0P0fVfZmxJj.json
+ create mode 100644 src/resources/playercharacters/ACTest/fvtt-Actor-actestmonk-wMDAYUvJlGJqaUG9.json
+ create mode 100644 src/tests/dbTest.py
+ create mode 100644 src/web_scraper/scrapetest.py
+
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+index 0000000..26d3352
+--- /dev/null
++++ b/.idea/.gitignore
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+diff --git a/.idea/encounterBuilder.iml b/.idea/encounterBuilder.iml
+new file mode 100644
+index 0000000..c5d2a88
+--- /dev/null
++++ b/.idea/encounterBuilder.iml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="PYTHON_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$" />
++    <orderEntry type="jdk" jdkName="Python 3.12 (encounterBuilder)" jdkType="Python SDK" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++  <component name="PyDocumentationSettings">
++    <option name="format" value="PLAIN" />
++    <option name="myDocStringFormat" value="Plain" />
++  </component>
++</module>
+\ No newline at end of file
+diff --git a/.idea/inspectionProfiles/profiles_settings.xml b/.idea/inspectionProfiles/profiles_settings.xml
+new file mode 100644
+index 0000000..105ce2d
+--- /dev/null
++++ b/.idea/inspectionProfiles/profiles_settings.xml
+@@ -0,0 +1,6 @@
++<component name="InspectionProjectProfileManager">
++  <settings>
++    <option name="USE_PROJECT_PROFILE" value="false" />
++    <version value="1.0" />
++  </settings>
++</component>
+\ No newline at end of file
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+index 0000000..278cb1c
+--- /dev/null
++++ b/.idea/misc.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Black">
++    <option name="sdkName" value="Python 3.12 (encounterBuilder)" />
++  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (encounterBuilder)" project-jdk-type="Python SDK" />
++</project>
+\ No newline at end of file
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+index 0000000..908522d
+--- /dev/null
++++ b/.idea/modules.xml
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/encounterBuilder.iml" filepath="$PROJECT_DIR$/.idea/encounterBuilder.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+index 0000000..35eb1dd
+--- /dev/null
++++ b/.idea/vcs.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/src/db/__init__.py b/src/db/__init__.py
+new file mode 100644
+index 0000000..e69de29
+diff --git a/src/db/__pycache__/__init__.cpython-312.pyc b/src/db/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..6301e80d0d12965c1b439af34878a20b2c0bea8f
+GIT binary patch
+literal 164
+zcmX@j%ge<81QL!%(n0iN5P=Rpvj9b=GgLBYGWxA#C}INgK7-W!a@Nnt&rQ|OO)M!%
+z%{S6_Ni9pw$uG!F%`4F_N-fAQ)=$k#&M(a?NiA|J&CE$jEz&P8O4d(F(vOeN%*!l^
+lkJl@x{Ka9Do1apelWJGQ3N(`uh>JmtkIamWj77{q769|SDER;Y
+
+literal 0
+HcmV?d00001
+
+diff --git a/src/db/__pycache__/dbConst.cpython-312.pyc b/src/db/__pycache__/dbConst.cpython-312.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..82ccbe8675135dadca619ad3223425e31ec0ec97
+GIT binary patch
+literal 228
+zcmX@j%ge<81QL!%(zSr}V-N=hn4yf%B0$D;1}277h7^X?j1bW%#!5y_rYfo8qGbJ)
+zB>mL9<owdSlGGxn(#)Kc)FQo<BtK22Tg=5JMYq^ek^&M-GFCEt25J4}q@R(Wo2s9i
+zSW=RjZ=~;%T9%rVUyz%cSE65(T999iVU|ABj+7+l{Ji24y@JYL95%W6DWy57c17$!
+gBSB6o761|-m>C%vZ*uZn;MKg$sny6<#0nGy003e=;{X5v
+
+literal 0
+HcmV?d00001
+
+diff --git a/src/db/dbConst.py b/src/db/dbConst.py
+new file mode 100644
+index 0000000..5fd2fb3
+--- /dev/null
++++ b/src/db/dbConst.py
+@@ -0,0 +1 @@
++dbPath = str("src/db/encounterBuilder.db")
+\ No newline at end of file
+diff --git a/src/db/dbInitializer.py b/src/db/dbInitializer.py
+new file mode 100644
+index 0000000..02cbb8f
+--- /dev/null
++++ b/src/db/dbInitializer.py
+@@ -0,0 +1,16 @@
++import sqlite3
++import dbConst
++
++
++conn = sqlite3.connect(dbConst.dbPath)
++cur = conn.cursor()
++
++with open("db/initDB.sql") as file:
++    sql_script = file.read()
++
++cur.executescript(sql_script)
++
++conn.commit()
++
++cur.close()
++conn.close()
+\ No newline at end of file
+diff --git a/src/db/encounterBuilder.db b/src/db/encounterBuilder.db
+new file mode 100644
+index 0000000000000000000000000000000000000000..1d3d0e9b3e568ba964b08335a6ba1478ebbed19e
+GIT binary patch
+literal 81920
+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
+N0tg_000Ku(;CuB@Zqfh%
+
+literal 0
+HcmV?d00001
+
+diff --git a/src/db/initDB.sql b/src/db/initDB.sql
+new file mode 100644
+index 0000000..a0a2e89
+--- /dev/null
++++ b/src/db/initDB.sql
+@@ -0,0 +1,106 @@
++CREATE TABLE IF NOT EXISTS "ACTORS" (
++	"ID"	INTEGER NOT NULL UNIQUE,
++	"NAME"	TEXT,
++	"DESCRIPTION"	TEXT,
++	"ARMORCLASS"	INTEGER,
++	"HITPOINTS"	INTEGER,
++	"AVERAGESAVE"	NUMERIC,
++	"TOHITBONUS"	INTEGER,
++	"SAVEDC"	INTEGER,
++	"BASEDPR"	NUMERIC,
++	"MAXDPR"	NUMERIC,
++	"JSONSTATS"	BLOB,
++	PRIMARY KEY("ID" AUTOINCREMENT)
++);
++
++CREATE TABLE IF NOT EXISTS "DICE" (
++	"ID"	INTEGER NOT NULL UNIQUE,
++	"DESCRIPTION"	TEXT,
++	"AVERAGE"	NUMERIC,
++	"MINVALUE"	NUMERIC,
++	"MAXVALUE"	NUMERIC,
++	PRIMARY KEY("ID" AUTOINCREMENT)
++);
++
++CREATE TABLE IF NOT EXISTS "SHAPES" (
++	"ID"	INTEGER NOT NULL UNIQUE,
++	"DESCRIPTION"	TEXT,
++	"DIMENSIONSX"	NUMERIC,
++	"DIMENSIONSY"	NUMERIC,
++	"DIMENSIONSZ"	NUMERIC,
++	"AREA"	NUMERIC,
++	"TARGETRATE"	NUMERIC,
++	PRIMARY KEY("ID" AUTOINCREMENT)
++);
++
++CREATE TABLE IF NOT EXISTS "ITEMS" (
++	"ID"	INTEGER NOT NULL UNIQUE,
++	"NAME"	TEXT,
++	"DESCRIPTION"	TEXT,
++	"MAXUSES"	INTEGER,
++	PRIMARY KEY("ID" AUTOINCREMENT)
++);
++
++CREATE TABLE IF NOT EXISTS "EFFECTS" (
++	"ID"	INTEGER NOT NULL UNIQUE,
++	"NAME"	TEXT,
++	"DESCRIPTION"	TEXT,
++	"DELIVERYTYPE"	INTEGER,
++	"EFFECTTYPE"	INTEGER,
++	"NUMACTIVATIONS"	INTEGER,
++	"NUMTARGETS"	INTEGER,
++	"FORMULA"	TEXT,
++	PRIMARY KEY("ID" AUTOINCREMENT),
++	FOREIGN KEY("DELIVERYTYPE") REFERENCES "DELIVERYTYPES"("ID"),
++	FOREIGN KEY("EFFECTTYPE") REFERENCES "EFFECTTYPES"("ID")
++);
++
++CREATE TABLE IF NOT EXISTS "DELIVERYTYPES" (
++	"ID"	INTEGER NOT NULL UNIQUE,
++	"DESCRIPTION"	TEXT,
++	"SHAPETYPE"	INTEGER,
++	PRIMARY KEY("ID" AUTOINCREMENT),
++	FOREIGN KEY("SHAPETYPE") REFERENCES "SHAPES"("ID")
++);
++
++CREATE TABLE IF NOT EXISTS "EFFECTTYPES" (
++	"ID"	INTEGER NOT NULL UNIQUE,
++	"DESCRIPTION"	NUMERIC,
++	PRIMARY KEY("ID" AUTOINCREMENT)
++);
++
++CREATE TABLE IF NOT EXISTS "RACTORSITEMS" (
++	"ACTORID"	INTEGER NOT NULL,
++	"ITEMID"	INTEGER NOT NULL,
++	PRIMARY KEY("ACTORID","ITEMID"),
++	FOREIGN KEY("ACTORID") REFERENCES "ACTORS"("ID"),
++	FOREIGN KEY("ITEMID") REFERENCES "ITEMS"("ID")
++);
++CREATE TABLE IF NOT EXISTS "RITEMSEFFECTS" (
++	"ITEMID"	INTEGER NOT NULL,
++	"EFFECTID"	INTEGER NOT NULL,
++	PRIMARY KEY("ITEMID","EFFECTID"),
++	FOREIGN KEY("EFFECTID") REFERENCES "EFFECTS"("ID"),
++	FOREIGN KEY("ITEMID") REFERENCES "ITEMS"("ID")
++);
++
++INSERT INTO DICE (DESCRIPTION, AVERAGE, MINVALUE, MAXVALUE)
++VALUES ("d4", 2.5, 1, 4);
++
++INSERT INTO DICE (DESCRIPTION, AVERAGE, MINVALUE, MAXVALUE)
++VALUES ("d6", 3.5, 1, 6);
++
++INSERT INTO DICE (DESCRIPTION, AVERAGE, MINVALUE, MAXVALUE)
++VALUES ("d8", 4.5, 1, 8);
++
++INSERT INTO DICE (DESCRIPTION, AVERAGE, MINVALUE, MAXVALUE)
++VALUES ("d10", 5.5, 1, 10);
++
++INSERT INTO DICE (DESCRIPTION, AVERAGE, MINVALUE, MAXVALUE)
++VALUES ("d12", 6.5, 1, 12);
++
++INSERT INTO DICE (DESCRIPTION, AVERAGE, MINVALUE, MAXVALUE)
++VALUES ("d20", 10.5, 1, 20);
++
++INSERT INTO DICE (DESCRIPTION, AVERAGE, MINVALUE, MAXVALUE)
++VALUES ("d100", 50.5, 1, 100);
+diff --git a/src/entities/__init__.py b/src/entities/__init__.py
+new file mode 100644
+index 0000000..e69de29
+diff --git a/src/entities/__pycache__/__init__.cpython-312.pyc b/src/entities/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..988a87e358c78c814cf9d4630a199b2f38b454df
+GIT binary patch
+literal 170
+zcmX@j%ge<81QL!%(n0iN5P=Rpvj9b=GgLBYGWxA#C}INgK7-W!^3>1B&rQ|OO)M!%
+z%{S6_Ni9pw$uG!F%`4F_N-fAQ)=$k#&M(a?NiA|J&CE$jEz&P8N(Ks+WR_&67VF2y
+qXXa&=#K-FuRQ}?y$<0qG%}KQ@Vg;Ja2*kx8#z$sGM#ds$APWF3J1d?5
+
+literal 0
+HcmV?d00001
+
+diff --git a/src/entities/actors/__init__.py b/src/entities/actors/__init__.py
+new file mode 100644
+index 0000000..e69de29
+diff --git a/src/entities/actors/__pycache__/__init__.cpython-312.pyc b/src/entities/actors/__pycache__/__init__.cpython-312.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..520d182d8204ad90534c0ae30d561c642da44e3d
+GIT binary patch
+literal 177
+zcmX@j%ge<81QL!%(n0iN5P=Rpvj9b=GgLBYGWxA#C}INgK7-W!3eeBU&rQ|OO)M!%
+z%{S6_Ni9pw$uG!F%`4F_N-fAQ)=$k#&M(a?NiA|J&CE$jEz&P8N(Ks+WR_&67V9S_
+xm*f`}>&M4u=4F<|$LkeT{^GF7%}*)KNwq6t1zNxe#Kj=SM`lJw#v*1Q3jm#gE?@uv
+
+literal 0
+HcmV?d00001
+
+diff --git a/src/entities/actors/__pycache__/actor.cpython-312.pyc b/src/entities/actors/__pycache__/actor.cpython-312.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..5ab04ed39435cf134f14a8f3eaea774d36f5e164
+GIT binary patch
+literal 9162
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/src/entities/actors/actor.py b/src/entities/actors/actor.py
+new file mode 100644
+index 0000000..5f290cb
+--- /dev/null
++++ b/src/entities/actors/actor.py
+@@ -0,0 +1,157 @@
++import sqlite3
++import json
++import math
++from sqlite3 import Connection
++
++import src.db.dbConst as dbConst
++from typing import Dict
++
++def getDefaultEquippedArmorAC(jsonDict: Dict) -> int:
++    # presumi che la scheda sia stata compilata correttamente e che l'equip abbia senso
++    # Trova in items[] tutti gli oggetti che abbiano armor.value != null (possono essere armature, scudi o altri oggetti che diano bonus alla CA)
++    # Trova in questa lista l'armatura (presumiamo sia solo una) e determina: AC base, max Dex, eventuali bonus.
++    # Per ciascun altro oggetto nella lista, somma il valore di AC e aggingilo alla formula: Base + min(Dex | max Dex) + magical bonus + other bonuses
++
++    # items.system.attunement = "required"? per tutti gli oggetti che danno AC
++    # effects.changes.key = "system.attributes.ac.bonus"
++        # effects.changes.value (convertire stringa a int)
++    # items.system.type.value = "shield" per gli scudi
++    #
++    for each in Dict['items']:
++        attunementRequirement: str(each['system']['attunement'])
++    # TEST: RETURN 1
++    return 1
++
++def getUnarmoredMonkAC(jsonDict: Dict) -> int:
++    dexMod = int(math.floor((jsonDict['system']['abilities']['dex']['value'] - 10) / 2))
++    wisMod = int(math.floor((jsonDict['system']['abilities']['wis']['value'] - 10) / 2))
++    return 10 + dexMod + wisMod
++
++def getUnarmoredBarbarianAC(jsonDict: Dict) -> int:
++    dexMod = int(math.floor((jsonDict['system']['abilities']['dex']['value'] - 10) / 2))
++    conMod = int(math.floor((jsonDict['system']['abilities']['con']['value'] - 10) / 2))
++    return 10 + dexMod + conMod
++
++def getUnarmoredBardAC(jsonDict: Dict) -> int:
++    dexMod = int(math.floor((jsonDict['system']['abilities']['dex']['value'] - 10) / 2))
++    chaMod = int(math.floor((jsonDict['system']['abilities']['cha']['value'] - 10) / 2))
++    return 10 + dexMod + chaMod
++
++def getMageArmorDraconicResilienceAC(jsonDict: Dict) -> int:
++    dexMod = int(math.floor((jsonDict['system']['abilities']['dex']['value'] - 10) / 2))
++    return 13 + dexMod
++
++    
++class Actor:
++
++    sqlFields: str = "NAME, DESCRIPTION, ARMORCLASS, HITPOINTS, AVERAGESAVE, TOHITBONUS, SAVEDC, BASEDPR, MAXDPR"
++
++    def __init__(self, id=0, name="Name", description="Description", armorClass=10, hitPoints=10, averageSave=0.0, toHitBonus=0, saveDC=0, baseDPR=0.0, maxDPR=0.0):
++        self.id = id
++        self.name = name
++        self.description = description
++        self.armorClass = armorClass
++        self.hitPoints = hitPoints
++        self.averageSave = averageSave
++        self.toHitBonus = toHitBonus
++        self.saveDC = saveDC
++        self.baseDPR = baseDPR
++        self.maxDPR = maxDPR
++    
++    def fromQuery(actor_id: int):
++        try:
++            conn: Connection = sqlite3.connect(dbConst.dbPath)
++            cur = conn.cursor()
++
++            cur.execute("SELECT " + Actor.sqlFields +  " FROM ACTORS WHERE ID = ?", actor_id)
++            row = tuple(cur.fetchone())
++            
++            if row is None:
++                raise ValueError(f"No Actor found with id: {actor_id}.")
++            
++            name, description, armorClass, hitPoints, averageSave, toHitBonus, saveDC, baseDPR, maxDPR = row
++
++            return Actor(name=name, description=description, armorClass=armorClass, hitPoints=hitPoints, averageSave=averageSave, toHitBonus=toHitBonus, saveDC=saveDC, baseDPR=baseDPR, maxDPR=maxDPR)
++
++        except sqlite3.Error as e:
++            raise Exception(f"SQLite error: {e}")
++            
++        finally:
++            if conn:
++                conn.close()
++
++    def fromDictionary(data: dict[str, any]):
++        name = data.get('name', None)
++        description = data.get('description', None)
++        armorClass = data.get('armorClass', None)
++        hitPoints = data.get('hitPoints', None)
++        averageSave = data.get('averageSave', None)
++        toHitBonus = data.get('toHitBonus', None)
++        saveDC = data.get('saveDC', None)
++        baseDPR = data.get('baseDPR', None)
++        maxDPR = data.get('maxDPR', None)
++
++        return Actor(name=name, description=description, armorClass=armorClass, hitPoints=hitPoints, averageSave=averageSave, toHitBonus=toHitBonus, saveDC=saveDC, baseDPR=baseDPR, maxDPR=maxDPR)
++
++    def insertActorDirect(self) -> None:
++
++        try:
++            with sqlite3.connect(dbConst.dbPath) as conn:
++                cur = conn.cursor()
++                cur.execute("INSERT INTO ACTORS ( " + Actor.sqlFields + " ) VALUES (?,?,?,?,?,?,?,?,?)", (self.name, self.description, self.armorClass, self.hitPoints, self.averageSave, self.toHitBonus, self.saveDC, self.baseDPR, self.maxDPR))
++                
++        except sqlite3.Error as e:
++            raise Exception(f"SQLite error: {e}")
++            
++    def updateActorDirect(self, id: int):
++        try:
++            conn = sqlite3.connect(dbConst.dbPath)
++            cur = conn.cursor()
++
++            cur.execute('''UPDATE ACTORS SET 
++                        NAME = ?, DESCRIPTION = ?, ARMORCLASS = ?, HITPOINTS = ?, AVERAGESAVE = ?, TOHITBONUS = ?, SAVEDC = ?, BASEDPR = ?, MAXDPR = ? 
++                        WHERE ID = ?''',
++                         (self.name, self.description, self.armorClass, self.hitPoints, self.averageSave, self.toHitBonus, self.saveDC, self.baseDPR, self.maxDPR, id))
++
++            conn.commit()
++        
++        except sqlite3.Error as e:
++            raise Exception(f"SQLite error: {e}")
++            
++        finally:
++            if conn:
++                conn.close()
++
++    def fromJsonFile(jsonFilePath: str):
++        try:
++            with open(jsonFilePath, "r") as file:
++                actorJsonDict = json.load(file)
++
++        except Exception as e:
++            print(f"si è verificato un errore durante l'import del file Json.")
++    
++    def mapJsonDict(jsonDict: Dict) -> Dict:
++        pass
++
++    def getArmorClass(jsonDict: Dict) -> int:
++        jsonFlatAc: int = jsonDict["system"]["attributes"]["ac"]["flat"]
++        if jsonFlatAc != None:
++            return jsonFlatAc
++        
++        
++        jsonAcCalc: str = jsonDict["system"]["attributes"]["ac"]["calc"]
++        match jsonAcCalc:
++            case "unarmoredBard":
++                return getUnarmoredBardAC(jsonDict)
++            case "unarmoredMonk":
++                return getUnarmoredMonkAC(jsonDict)
++            case "unarmoredBarbarian":
++                return getUnarmoredBarbarianAC(jsonDict)
++            case "mage" | "draconic":
++                return getMageArmorDraconicResilienceAC(jsonDict)
++            case _:
++                return getDefaultEquippedArmorAC(jsonDict)
++                
++
++
++            
+diff --git a/src/entities/items/__init__.py b/src/entities/items/__init__.py
+new file mode 100644
+index 0000000..e69de29
+diff --git a/src/entities/items/item.py b/src/entities/items/item.py
+new file mode 100644
+index 0000000..e69de29
+diff --git a/src/resources/playercharacters/ACTest/fvtt-Actor-actestbarbarian-wkH1AEJQDSmupbQY.json b/src/resources/playercharacters/ACTest/fvtt-Actor-actestbarbarian-wkH1AEJQDSmupbQY.json
+new file mode 100644
+index 0000000..2bd0fbd
+--- /dev/null
++++ b/src/resources/playercharacters/ACTest/fvtt-Actor-actestbarbarian-wkH1AEJQDSmupbQY.json
+@@ -0,0 +1,883 @@
++{
++  "folder": "zpbtirz329rtU5GN",
++  "name": "ACTestBarbarian",
++  "type": "character",
++  "img": "icons/svg/mystery-man.svg",
++  "system": {
++    "currency": {
++      "pp": 0,
++      "gp": 0,
++      "ep": 0,
++      "sp": 0,
++      "cp": 0
++    },
++    "abilities": {
++      "str": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "dex": {
++        "value": 16,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "con": {
++        "value": 16,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "int": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "wis": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "cha": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      }
++    },
++    "bonuses": {
++      "mwak": {
++        "attack": "",
++        "damage": ""
++      },
++      "rwak": {
++        "attack": "",
++        "damage": ""
++      },
++      "msak": {
++        "attack": "",
++        "damage": ""
++      },
++      "rsak": {
++        "attack": "",
++        "damage": ""
++      },
++      "abilities": {
++        "check": "",
++        "save": "",
++        "skill": ""
++      },
++      "spell": {
++        "dc": ""
++      }
++    },
++    "skills": {
++      "acr": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ani": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "arc": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ath": {
++        "ability": "str",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "dec": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "his": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ins": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "itm": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "inv": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "med": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "nat": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "prc": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "prf": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "per": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "rel": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "slt": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ste": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "sur": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      }
++    },
++    "tools": {},
++    "spells": {
++      "spell1": {
++        "value": 0,
++        "override": null
++      },
++      "spell2": {
++        "value": 0,
++        "override": null
++      },
++      "spell3": {
++        "value": 0,
++        "override": null
++      },
++      "spell4": {
++        "value": 0,
++        "override": null
++      },
++      "spell5": {
++        "value": 0,
++        "override": null
++      },
++      "spell6": {
++        "value": 0,
++        "override": null
++      },
++      "spell7": {
++        "value": 0,
++        "override": null
++      },
++      "spell8": {
++        "value": 0,
++        "override": null
++      },
++      "spell9": {
++        "value": 0,
++        "override": null
++      },
++      "pact": {
++        "value": 0,
++        "override": null
++      }
++    },
++    "attributes": {
++      "init": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "bonus": ""
++      },
++      "movement": {
++        "burrow": null,
++        "climb": null,
++        "fly": null,
++        "swim": null,
++        "walk": null,
++        "units": null,
++        "hover": false
++      },
++      "attunement": {
++        "max": 3
++      },
++      "senses": {
++        "darkvision": null,
++        "blindsight": null,
++        "tremorsense": null,
++        "truesight": null,
++        "units": null,
++        "special": ""
++      },
++      "spellcasting": "",
++      "exhaustion": 0,
++      "concentration": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "bonuses": {
++          "save": ""
++        },
++        "limit": 1
++      },
++      "loyalty": {
++        "value": null
++      },
++      "ac": {
++        "flat": null,
++        "calc": "unarmoredBarb"
++      },
++      "hp": {
++        "value": 0,
++        "max": null,
++        "temp": null,
++        "tempmax": 0,
++        "bonuses": {}
++      },
++      "death": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "success": 0,
++        "failure": 0,
++        "bonuses": {
++          "save": ""
++        }
++      },
++      "inspiration": false
++    },
++    "bastion": {
++      "name": "",
++      "description": ""
++    },
++    "details": {
++      "biography": {
++        "value": "",
++        "public": ""
++      },
++      "alignment": "",
++      "ideal": "",
++      "bond": "",
++      "flaw": "",
++      "race": null,
++      "background": null,
++      "originalClass": "",
++      "xp": {
++        "value": 0
++      },
++      "appearance": "",
++      "trait": "",
++      "eyes": "",
++      "height": "",
++      "faith": "",
++      "hair": "",
++      "weight": "",
++      "gender": "",
++      "skin": "",
++      "age": ""
++    },
++    "traits": {
++      "size": "med",
++      "di": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dr": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dv": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dm": {
++        "amount": {},
++        "bypasses": []
++      },
++      "ci": {
++        "value": [],
++        "custom": ""
++      },
++      "languages": {
++        "value": [],
++        "custom": "",
++        "communication": {}
++      },
++      "weaponProf": {
++        "value": [],
++        "custom": "",
++        "mastery": {
++          "value": [],
++          "bonus": []
++        }
++      },
++      "armorProf": {
++        "value": [],
++        "custom": ""
++      }
++    },
++    "resources": {
++      "primary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      },
++      "secondary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      },
++      "tertiary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      }
++    },
++    "favorites": []
++  },
++  "prototypeToken": {
++    "name": "ACTestBarbarian",
++    "displayName": 0,
++    "actorLink": true,
++    "appendNumber": false,
++    "prependAdjective": false,
++    "width": 1,
++    "height": 1,
++    "texture": {
++      "src": "icons/svg/mystery-man.svg",
++      "anchorX": 0.5,
++      "anchorY": 0.5,
++      "offsetX": 0,
++      "offsetY": 0,
++      "fit": "contain",
++      "scaleX": 1,
++      "scaleY": 1,
++      "rotation": 0,
++      "tint": "#ffffff",
++      "alphaThreshold": 0.75
++    },
++    "hexagonalShape": 0,
++    "lockRotation": false,
++    "rotation": 0,
++    "alpha": 1,
++    "disposition": 1,
++    "displayBars": 0,
++    "bar1": {
++      "attribute": "attributes.hp"
++    },
++    "bar2": {
++      "attribute": null
++    },
++    "light": {
++      "negative": false,
++      "priority": 0,
++      "alpha": 0.5,
++      "angle": 360,
++      "bright": 0,
++      "color": null,
++      "coloration": 1,
++      "dim": 0,
++      "attenuation": 0.5,
++      "luminosity": 0.5,
++      "saturation": 0,
++      "contrast": 0,
++      "shadows": 0,
++      "animation": {
++        "type": null,
++        "speed": 5,
++        "intensity": 5,
++        "reverse": false
++      },
++      "darkness": {
++        "min": 0,
++        "max": 1
++      }
++    },
++    "sight": {
++      "enabled": true,
++      "range": 0,
++      "angle": 360,
++      "visionMode": "basic",
++      "color": null,
++      "attenuation": 0.1,
++      "brightness": 0,
++      "saturation": 0,
++      "contrast": 0
++    },
++    "detectionModes": [],
++    "occludable": {
++      "radius": 0
++    },
++    "ring": {
++      "enabled": false,
++      "colors": {
++        "ring": null,
++        "background": null
++      },
++      "effects": 1,
++      "subject": {
++        "scale": 1,
++        "texture": null
++      }
++    },
++    "flags": {},
++    "randomImg": false
++  },
++  "items": [
++    {
++      "_id": "dY34iGLYLA7g6zUC",
++      "name": "Shield +1",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/shield/round-wooden-boss-gold-brown.webp",
++      "system": {
++        "description": {
++          "value": "<p>While holding this shield, you have a bonus to AC of +1. This bonus is in addition to the shield's normal bonus to AC.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 6,
++          "units": "lb"
++        },
++        "price": {
++          "value": 1500,
++          "denomination": "gp"
++        },
++        "attunement": "",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "crewed": false,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 2,
++          "dex": null,
++          "magicalBonus": 1
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "shield",
++          "baseItem": "shield"
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "properties": [
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "shield-1",
++        "attuned": false,
++        "equipped": true
++      },
++      "effects": [],
++      "folder": "JqTP017wj3uxDJ8g",
++      "sort": 0,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.NgwrqNa6kkgoPW2Q",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739096504765,
++        "modifiedTime": 1739096521585,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    },
++    {
++      "_id": "a8TXqxImFYYaAs8q",
++      "name": "Cloak of Protection",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/back/cloak-heavy-fur-blue.webp",
++      "system": {
++        "description": {
++          "value": "<p><em>Wondrous item, (requires attunement)</em></p>\n<p>You gain a +1 bonus to AC and saving throws while you wear this cloak.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 3,
++          "units": "lb"
++        },
++        "price": {
++          "value": 3500,
++          "denomination": "gp"
++        },
++        "attunement": "required",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 0,
++          "dex": 0,
++          "magicalBonus": null
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "clothing",
++          "baseItem": ""
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "crewed": false,
++        "properties": [
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "cloak-of-protection",
++        "attuned": true,
++        "equipped": true
++      },
++      "effects": [
++        {
++          "_id": "jxfin1rh71p1xjjv",
++          "changes": [
++            {
++              "key": "system.attributes.ac.bonus",
++              "mode": 2,
++              "value": "+1",
++              "priority": null
++            },
++            {
++              "key": "system.bonuses.abilities.save",
++              "mode": 2,
++              "value": "+1",
++              "priority": null
++            }
++          ],
++          "disabled": false,
++          "duration": {
++            "startTime": 0,
++            "seconds": null,
++            "combat": null,
++            "rounds": null,
++            "turns": null,
++            "startRound": null,
++            "startTurn": null
++          },
++          "origin": "Compendium.dnd5e.items.lvaMqEhfidfHDGf5",
++          "transfer": true,
++          "flags": {},
++          "tint": "#ffffff",
++          "name": "+1 to AC & Saves",
++          "description": "",
++          "statuses": [],
++          "_stats": {
++            "compendiumSource": null,
++            "duplicateSource": null,
++            "coreVersion": "12.331",
++            "systemId": "dnd5e",
++            "systemVersion": "4.2.2",
++            "createdTime": null,
++            "modifiedTime": null,
++            "lastModifiedBy": null
++          },
++          "img": "icons/equipment/back/cloak-heavy-fur-blue.webp",
++          "type": "base",
++          "system": {},
++          "sort": 0
++        }
++      ],
++      "folder": "aJgMxnZED9XdoN2W",
++      "sort": 0,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.lvaMqEhfidfHDGf5",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739096512167,
++        "modifiedTime": 1739096529228,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    }
++  ],
++  "effects": [],
++  "flags": {
++    "dnd5e": {
++      "showTokenPortrait": false
++    },
++    "exportSource": {
++      "world": "testworld",
++      "system": "dnd5e",
++      "coreVersion": "12.331",
++      "systemVersion": "4.2.2"
++    }
++  },
++  "_stats": {
++    "coreVersion": "12.331",
++    "systemId": "dnd5e",
++    "systemVersion": "4.2.2",
++    "createdTime": 1739096468409,
++    "modifiedTime": 1739100401570,
++    "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++  }
++}
+\ No newline at end of file
+diff --git a/src/resources/playercharacters/ACTest/fvtt-Actor-actestbard-5pRcYzainoOCcrrx.json b/src/resources/playercharacters/ACTest/fvtt-Actor-actestbard-5pRcYzainoOCcrrx.json
+new file mode 100644
+index 0000000..a907dea
+--- /dev/null
++++ b/src/resources/playercharacters/ACTest/fvtt-Actor-actestbard-5pRcYzainoOCcrrx.json
+@@ -0,0 +1,883 @@
++{
++  "folder": "zpbtirz329rtU5GN",
++  "name": "ACTestBard",
++  "type": "character",
++  "img": "icons/svg/mystery-man.svg",
++  "system": {
++    "currency": {
++      "pp": 0,
++      "gp": 0,
++      "ep": 0,
++      "sp": 0,
++      "cp": 0
++    },
++    "abilities": {
++      "str": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "dex": {
++        "value": 16,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "con": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "int": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "wis": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "cha": {
++        "value": 16,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      }
++    },
++    "bonuses": {
++      "mwak": {
++        "attack": "",
++        "damage": ""
++      },
++      "rwak": {
++        "attack": "",
++        "damage": ""
++      },
++      "msak": {
++        "attack": "",
++        "damage": ""
++      },
++      "rsak": {
++        "attack": "",
++        "damage": ""
++      },
++      "abilities": {
++        "check": "",
++        "save": "",
++        "skill": ""
++      },
++      "spell": {
++        "dc": ""
++      }
++    },
++    "skills": {
++      "acr": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ani": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "arc": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ath": {
++        "ability": "str",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "dec": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "his": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ins": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "itm": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "inv": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "med": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "nat": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "prc": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "prf": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "per": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "rel": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "slt": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ste": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "sur": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      }
++    },
++    "tools": {},
++    "spells": {
++      "spell1": {
++        "value": 0,
++        "override": null
++      },
++      "spell2": {
++        "value": 0,
++        "override": null
++      },
++      "spell3": {
++        "value": 0,
++        "override": null
++      },
++      "spell4": {
++        "value": 0,
++        "override": null
++      },
++      "spell5": {
++        "value": 0,
++        "override": null
++      },
++      "spell6": {
++        "value": 0,
++        "override": null
++      },
++      "spell7": {
++        "value": 0,
++        "override": null
++      },
++      "spell8": {
++        "value": 0,
++        "override": null
++      },
++      "spell9": {
++        "value": 0,
++        "override": null
++      },
++      "pact": {
++        "value": 0,
++        "override": null
++      }
++    },
++    "attributes": {
++      "init": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "bonus": ""
++      },
++      "movement": {
++        "burrow": null,
++        "climb": null,
++        "fly": null,
++        "swim": null,
++        "walk": null,
++        "units": null,
++        "hover": false
++      },
++      "attunement": {
++        "max": 3
++      },
++      "senses": {
++        "darkvision": null,
++        "blindsight": null,
++        "tremorsense": null,
++        "truesight": null,
++        "units": null,
++        "special": ""
++      },
++      "spellcasting": "",
++      "exhaustion": 0,
++      "concentration": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "bonuses": {
++          "save": ""
++        },
++        "limit": 1
++      },
++      "loyalty": {
++        "value": null
++      },
++      "ac": {
++        "flat": null,
++        "calc": "unarmoredBard"
++      },
++      "hp": {
++        "value": 0,
++        "max": null,
++        "temp": null,
++        "tempmax": 0,
++        "bonuses": {}
++      },
++      "death": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "success": 0,
++        "failure": 0,
++        "bonuses": {
++          "save": ""
++        }
++      },
++      "inspiration": false
++    },
++    "bastion": {
++      "name": "",
++      "description": ""
++    },
++    "details": {
++      "biography": {
++        "value": "",
++        "public": ""
++      },
++      "alignment": "",
++      "ideal": "",
++      "bond": "",
++      "flaw": "",
++      "race": null,
++      "background": null,
++      "originalClass": "",
++      "xp": {
++        "value": 0
++      },
++      "appearance": "",
++      "trait": "",
++      "eyes": "",
++      "height": "",
++      "faith": "",
++      "hair": "",
++      "weight": "",
++      "gender": "",
++      "skin": "",
++      "age": ""
++    },
++    "traits": {
++      "size": "med",
++      "di": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dr": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dv": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dm": {
++        "amount": {},
++        "bypasses": []
++      },
++      "ci": {
++        "value": [],
++        "custom": ""
++      },
++      "languages": {
++        "value": [],
++        "custom": "",
++        "communication": {}
++      },
++      "weaponProf": {
++        "value": [],
++        "custom": "",
++        "mastery": {
++          "value": [],
++          "bonus": []
++        }
++      },
++      "armorProf": {
++        "value": [],
++        "custom": ""
++      }
++    },
++    "resources": {
++      "primary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      },
++      "secondary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      },
++      "tertiary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      }
++    },
++    "favorites": []
++  },
++  "prototypeToken": {
++    "name": "ACTestBard",
++    "displayName": 0,
++    "actorLink": true,
++    "appendNumber": false,
++    "prependAdjective": false,
++    "width": 1,
++    "height": 1,
++    "texture": {
++      "src": "icons/svg/mystery-man.svg",
++      "anchorX": 0.5,
++      "anchorY": 0.5,
++      "offsetX": 0,
++      "offsetY": 0,
++      "fit": "contain",
++      "scaleX": 1,
++      "scaleY": 1,
++      "rotation": 0,
++      "tint": "#ffffff",
++      "alphaThreshold": 0.75
++    },
++    "hexagonalShape": 0,
++    "lockRotation": false,
++    "rotation": 0,
++    "alpha": 1,
++    "disposition": 1,
++    "displayBars": 0,
++    "bar1": {
++      "attribute": "attributes.hp"
++    },
++    "bar2": {
++      "attribute": null
++    },
++    "light": {
++      "negative": false,
++      "priority": 0,
++      "alpha": 0.5,
++      "angle": 360,
++      "bright": 0,
++      "color": null,
++      "coloration": 1,
++      "dim": 0,
++      "attenuation": 0.5,
++      "luminosity": 0.5,
++      "saturation": 0,
++      "contrast": 0,
++      "shadows": 0,
++      "animation": {
++        "type": null,
++        "speed": 5,
++        "intensity": 5,
++        "reverse": false
++      },
++      "darkness": {
++        "min": 0,
++        "max": 1
++      }
++    },
++    "sight": {
++      "enabled": true,
++      "range": 0,
++      "angle": 360,
++      "visionMode": "basic",
++      "color": null,
++      "attenuation": 0.1,
++      "brightness": 0,
++      "saturation": 0,
++      "contrast": 0
++    },
++    "detectionModes": [],
++    "occludable": {
++      "radius": 0
++    },
++    "ring": {
++      "enabled": false,
++      "colors": {
++        "ring": null,
++        "background": null
++      },
++      "effects": 1,
++      "subject": {
++        "scale": 1,
++        "texture": null
++      }
++    },
++    "flags": {},
++    "randomImg": false
++  },
++  "items": [
++    {
++      "_id": "HKzFSM2UxxZIaa1i",
++      "name": "Shield +1",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/shield/round-wooden-boss-gold-brown.webp",
++      "system": {
++        "description": {
++          "value": "<p>While holding this shield, you have a bonus to AC of +1. This bonus is in addition to the shield's normal bonus to AC.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 6,
++          "units": "lb"
++        },
++        "price": {
++          "value": 1500,
++          "denomination": "gp"
++        },
++        "attunement": "",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "crewed": false,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 2,
++          "dex": null,
++          "magicalBonus": 1
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "shield",
++          "baseItem": "shield"
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "properties": [
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "shield-1",
++        "attuned": false,
++        "equipped": true
++      },
++      "effects": [],
++      "folder": "JqTP017wj3uxDJ8g",
++      "sort": 0,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.NgwrqNa6kkgoPW2Q",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739098148568,
++        "modifiedTime": 1739098159185,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    },
++    {
++      "_id": "7yV4wVrSGSQrvDQH",
++      "name": "Cloak of Protection",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/back/cloak-heavy-fur-blue.webp",
++      "system": {
++        "description": {
++          "value": "<p><em>Wondrous item, (requires attunement)</em></p>\n<p>You gain a +1 bonus to AC and saving throws while you wear this cloak.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 3,
++          "units": "lb"
++        },
++        "price": {
++          "value": 3500,
++          "denomination": "gp"
++        },
++        "attunement": "required",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 0,
++          "dex": 0,
++          "magicalBonus": null
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "clothing",
++          "baseItem": ""
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "crewed": false,
++        "properties": [
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "cloak-of-protection",
++        "attuned": true,
++        "equipped": true
++      },
++      "effects": [
++        {
++          "_id": "jxfin1rh71p1xjjv",
++          "changes": [
++            {
++              "key": "system.attributes.ac.bonus",
++              "mode": 2,
++              "value": "+1",
++              "priority": null
++            },
++            {
++              "key": "system.bonuses.abilities.save",
++              "mode": 2,
++              "value": "+1",
++              "priority": null
++            }
++          ],
++          "disabled": false,
++          "duration": {
++            "startTime": 0,
++            "seconds": null,
++            "combat": null,
++            "rounds": null,
++            "turns": null,
++            "startRound": null,
++            "startTurn": null
++          },
++          "origin": "Compendium.dnd5e.items.lvaMqEhfidfHDGf5",
++          "transfer": true,
++          "flags": {},
++          "tint": "#ffffff",
++          "name": "+1 to AC & Saves",
++          "description": "",
++          "statuses": [],
++          "_stats": {
++            "compendiumSource": null,
++            "duplicateSource": null,
++            "coreVersion": "12.331",
++            "systemId": "dnd5e",
++            "systemVersion": "4.2.2",
++            "createdTime": null,
++            "modifiedTime": null,
++            "lastModifiedBy": null
++          },
++          "img": "icons/equipment/back/cloak-heavy-fur-blue.webp",
++          "type": "base",
++          "system": {},
++          "sort": 0
++        }
++      ],
++      "folder": "aJgMxnZED9XdoN2W",
++      "sort": 0,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.lvaMqEhfidfHDGf5",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739098155259,
++        "modifiedTime": 1739098160624,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    }
++  ],
++  "effects": [],
++  "flags": {
++    "dnd5e": {
++      "showTokenPortrait": false
++    },
++    "exportSource": {
++      "world": "testworld",
++      "system": "dnd5e",
++      "coreVersion": "12.331",
++      "systemVersion": "4.2.2"
++    }
++  },
++  "_stats": {
++    "coreVersion": "12.331",
++    "systemId": "dnd5e",
++    "systemVersion": "4.2.2",
++    "createdTime": 1739097233220,
++    "modifiedTime": 1739100393358,
++    "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++  }
++}
+\ No newline at end of file
+diff --git a/src/resources/playercharacters/ACTest/fvtt-Actor-actestdefault_equippedarmor-0QfxTPkPy7AAdang.json b/src/resources/playercharacters/ACTest/fvtt-Actor-actestdefault_equippedarmor-0QfxTPkPy7AAdang.json
+new file mode 100644
+index 0000000..e791bc6
+--- /dev/null
++++ b/src/resources/playercharacters/ACTest/fvtt-Actor-actestdefault_equippedarmor-0QfxTPkPy7AAdang.json
+@@ -0,0 +1,973 @@
++{
++  "name": "ACTestDefault_EquippedArmor",
++  "type": "character",
++  "img": "icons/svg/mystery-man.svg",
++  "system": {
++    "currency": {
++      "pp": 0,
++      "gp": 0,
++      "ep": 0,
++      "sp": 0,
++      "cp": 0
++    },
++    "abilities": {
++      "str": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "dex": {
++        "value": 16,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "con": {
++        "value": 16,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "int": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "wis": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "cha": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      }
++    },
++    "bonuses": {
++      "mwak": {
++        "attack": "",
++        "damage": ""
++      },
++      "rwak": {
++        "attack": "",
++        "damage": ""
++      },
++      "msak": {
++        "attack": "",
++        "damage": ""
++      },
++      "rsak": {
++        "attack": "",
++        "damage": ""
++      },
++      "abilities": {
++        "check": "",
++        "save": "",
++        "skill": ""
++      },
++      "spell": {
++        "dc": ""
++      }
++    },
++    "skills": {
++      "acr": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ani": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "arc": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ath": {
++        "ability": "str",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "dec": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "his": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ins": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "itm": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "inv": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "med": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "nat": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "prc": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "prf": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "per": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "rel": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "slt": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ste": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "sur": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      }
++    },
++    "tools": {},
++    "spells": {
++      "spell1": {
++        "value": 0,
++        "override": null
++      },
++      "spell2": {
++        "value": 0,
++        "override": null
++      },
++      "spell3": {
++        "value": 0,
++        "override": null
++      },
++      "spell4": {
++        "value": 0,
++        "override": null
++      },
++      "spell5": {
++        "value": 0,
++        "override": null
++      },
++      "spell6": {
++        "value": 0,
++        "override": null
++      },
++      "spell7": {
++        "value": 0,
++        "override": null
++      },
++      "spell8": {
++        "value": 0,
++        "override": null
++      },
++      "spell9": {
++        "value": 0,
++        "override": null
++      },
++      "pact": {
++        "value": 0,
++        "override": null
++      }
++    },
++    "attributes": {
++      "init": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "bonus": ""
++      },
++      "movement": {
++        "burrow": null,
++        "climb": null,
++        "fly": null,
++        "swim": null,
++        "walk": null,
++        "units": null,
++        "hover": false
++      },
++      "attunement": {
++        "max": 3
++      },
++      "senses": {
++        "darkvision": null,
++        "blindsight": null,
++        "tremorsense": null,
++        "truesight": null,
++        "units": null,
++        "special": ""
++      },
++      "spellcasting": "",
++      "exhaustion": 0,
++      "concentration": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "bonuses": {
++          "save": ""
++        },
++        "limit": 1
++      },
++      "loyalty": {
++        "value": null
++      },
++      "ac": {
++        "flat": null,
++        "calc": "default"
++      },
++      "hp": {
++        "value": 0,
++        "max": null,
++        "temp": null,
++        "tempmax": 0,
++        "bonuses": {}
++      },
++      "death": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "success": 0,
++        "failure": 0,
++        "bonuses": {
++          "save": ""
++        }
++      },
++      "inspiration": false
++    },
++    "bastion": {
++      "name": "",
++      "description": ""
++    },
++    "details": {
++      "biography": {
++        "value": "",
++        "public": ""
++      },
++      "alignment": "",
++      "ideal": "",
++      "bond": "",
++      "flaw": "",
++      "race": null,
++      "background": null,
++      "originalClass": "",
++      "xp": {
++        "value": 0
++      },
++      "appearance": "",
++      "trait": "",
++      "eyes": "",
++      "height": "",
++      "faith": "",
++      "hair": "",
++      "weight": "",
++      "gender": "",
++      "skin": "",
++      "age": ""
++    },
++    "traits": {
++      "size": "med",
++      "di": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dr": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dv": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dm": {
++        "amount": {},
++        "bypasses": []
++      },
++      "ci": {
++        "value": [],
++        "custom": ""
++      },
++      "languages": {
++        "value": [],
++        "custom": "",
++        "communication": {}
++      },
++      "weaponProf": {
++        "value": [],
++        "custom": "",
++        "mastery": {
++          "value": [],
++          "bonus": []
++        }
++      },
++      "armorProf": {
++        "value": [],
++        "custom": ""
++      }
++    },
++    "resources": {
++      "primary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      },
++      "secondary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      },
++      "tertiary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      }
++    },
++    "favorites": []
++  },
++  "prototypeToken": {
++    "name": "ACTestDefault",
++    "displayName": 0,
++    "actorLink": true,
++    "appendNumber": false,
++    "prependAdjective": false,
++    "width": 1,
++    "height": 1,
++    "texture": {
++      "src": "icons/svg/mystery-man.svg",
++      "anchorX": 0.5,
++      "anchorY": 0.5,
++      "offsetX": 0,
++      "offsetY": 0,
++      "fit": "contain",
++      "scaleX": 1,
++      "scaleY": 1,
++      "rotation": 0,
++      "tint": "#ffffff",
++      "alphaThreshold": 0.75
++    },
++    "hexagonalShape": 0,
++    "lockRotation": false,
++    "rotation": 0,
++    "alpha": 1,
++    "disposition": 1,
++    "displayBars": 0,
++    "bar1": {
++      "attribute": "attributes.hp"
++    },
++    "bar2": {
++      "attribute": null
++    },
++    "light": {
++      "negative": false,
++      "priority": 0,
++      "alpha": 0.5,
++      "angle": 360,
++      "bright": 0,
++      "color": null,
++      "coloration": 1,
++      "dim": 0,
++      "attenuation": 0.5,
++      "luminosity": 0.5,
++      "saturation": 0,
++      "contrast": 0,
++      "shadows": 0,
++      "animation": {
++        "type": null,
++        "speed": 5,
++        "intensity": 5,
++        "reverse": false
++      },
++      "darkness": {
++        "min": 0,
++        "max": 1
++      }
++    },
++    "sight": {
++      "enabled": true,
++      "range": 0,
++      "angle": 360,
++      "visionMode": "basic",
++      "color": null,
++      "attenuation": 0.1,
++      "brightness": 0,
++      "saturation": 0,
++      "contrast": 0
++    },
++    "detectionModes": [],
++    "occludable": {
++      "radius": 0
++    },
++    "ring": {
++      "enabled": false,
++      "colors": {
++        "ring": null,
++        "background": null
++      },
++      "effects": 1,
++      "subject": {
++        "scale": 1,
++        "texture": null
++      }
++    },
++    "flags": {},
++    "randomImg": false
++  },
++  "items": [
++    {
++      "_id": "9rZxeMmlT9lYZgqP",
++      "name": "Adamantine Breastplate",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/chest/breastplate-collared-steel-grey.webp",
++      "system": {
++        "description": {
++          "value": "<p>This armor is reinforced with adamantine, one of the hardest substances in existence.</p>\n<p>While you're wearing it, any critical hit against you becomes a normal hit.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 20,
++          "units": "lb"
++        },
++        "price": {
++          "value": 900,
++          "denomination": "gp"
++        },
++        "attunement": "",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "crewed": false,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 14,
++          "dex": 2,
++          "magicalBonus": null
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "medium",
++          "baseItem": "breastplate"
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "properties": [
++          "ada",
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "adamantine-breastplate",
++        "attuned": false,
++        "equipped": true
++      },
++      "effects": [],
++      "folder": "JqTP017wj3uxDJ8g",
++      "sort": 0,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.DevmObXWP9MfwE2c",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739096220601,
++        "modifiedTime": 1739096223025,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    },
++    {
++      "_id": "M0OVn6V7nFO0mbml",
++      "name": "Shield +1",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/shield/round-wooden-boss-gold-brown.webp",
++      "system": {
++        "description": {
++          "value": "<p>While holding this shield, you have a bonus to AC of +1. This bonus is in addition to the shield's normal bonus to AC.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 6,
++          "units": "lb"
++        },
++        "price": {
++          "value": 1500,
++          "denomination": "gp"
++        },
++        "attunement": "",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "crewed": false,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 2,
++          "dex": null,
++          "magicalBonus": 1
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "shield",
++          "baseItem": "shield"
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "properties": [
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "shield-1",
++        "attuned": false,
++        "equipped": true
++      },
++      "effects": [],
++      "folder": "JqTP017wj3uxDJ8g",
++      "sort": 0,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.NgwrqNa6kkgoPW2Q",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739096230223,
++        "modifiedTime": 1739096251134,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    },
++    {
++      "_id": "MJAjE85fPmJ9Jb62",
++      "name": "Cloak of Protection",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/back/cloak-heavy-fur-blue.webp",
++      "system": {
++        "description": {
++          "value": "<p><em>Wondrous item, (requires attunement)</em></p>\n<p>You gain a +1 bonus to AC and saving throws while you wear this cloak.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 3,
++          "units": "lb"
++        },
++        "price": {
++          "value": 3500,
++          "denomination": "gp"
++        },
++        "attunement": "required",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 0,
++          "dex": 0,
++          "magicalBonus": null
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "clothing",
++          "baseItem": ""
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "crewed": false,
++        "properties": [
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "cloak-of-protection",
++        "attuned": true,
++        "equipped": true
++      },
++      "effects": [
++        {
++          "_id": "jxfin1rh71p1xjjv",
++          "changes": [
++            {
++              "key": "system.attributes.ac.bonus",
++              "mode": 2,
++              "value": "+1",
++              "priority": null
++            },
++            {
++              "key": "system.bonuses.abilities.save",
++              "mode": 2,
++              "value": "+1",
++              "priority": null
++            }
++          ],
++          "disabled": false,
++          "duration": {
++            "startTime": 0,
++            "seconds": null,
++            "combat": null,
++            "rounds": null,
++            "turns": null,
++            "startRound": null,
++            "startTurn": null
++          },
++          "origin": "Compendium.dnd5e.items.lvaMqEhfidfHDGf5",
++          "transfer": true,
++          "flags": {},
++          "tint": "#ffffff",
++          "name": "+1 to AC & Saves",
++          "description": "",
++          "statuses": [],
++          "_stats": {
++            "compendiumSource": null,
++            "duplicateSource": null,
++            "coreVersion": "12.331",
++            "systemId": "dnd5e",
++            "systemVersion": "4.2.2",
++            "createdTime": null,
++            "modifiedTime": null,
++            "lastModifiedBy": null
++          },
++          "img": "icons/equipment/back/cloak-heavy-fur-blue.webp",
++          "type": "base",
++          "system": {},
++          "sort": 0
++        }
++      ],
++      "folder": "aJgMxnZED9XdoN2W",
++      "sort": 0,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.lvaMqEhfidfHDGf5",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739096289374,
++        "modifiedTime": 1739096291299,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    }
++  ],
++  "effects": [],
++  "folder": "zpbtirz329rtU5GN",
++  "flags": {
++    "dnd5e": {
++      "showTokenPortrait": false
++    },
++    "exportSource": {
++      "world": "testworld",
++      "system": "dnd5e",
++      "coreVersion": "12.331",
++      "systemVersion": "4.2.2"
++    }
++  },
++  "_stats": {
++    "coreVersion": "12.331",
++    "systemId": "dnd5e",
++    "systemVersion": "4.2.2",
++    "createdTime": 1739096193629,
++    "modifiedTime": 1739101391901,
++    "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++  }
++}
+\ No newline at end of file
+diff --git a/src/resources/playercharacters/ACTest/fvtt-Actor-actestmagearmor_draconicresilience-MG4tI0P0fVfZmxJj.json b/src/resources/playercharacters/ACTest/fvtt-Actor-actestmagearmor_draconicresilience-MG4tI0P0fVfZmxJj.json
+new file mode 100644
+index 0000000..9dbab20
+--- /dev/null
++++ b/src/resources/playercharacters/ACTest/fvtt-Actor-actestmagearmor_draconicresilience-MG4tI0P0fVfZmxJj.json
+@@ -0,0 +1,883 @@
++{
++  "folder": "zpbtirz329rtU5GN",
++  "name": "ACTestMageArmor_DraconicResilience",
++  "type": "character",
++  "img": "icons/svg/mystery-man.svg",
++  "system": {
++    "currency": {
++      "pp": 0,
++      "gp": 0,
++      "ep": 0,
++      "sp": 0,
++      "cp": 0
++    },
++    "abilities": {
++      "str": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "dex": {
++        "value": 16,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "con": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "int": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "wis": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "cha": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      }
++    },
++    "bonuses": {
++      "mwak": {
++        "attack": "",
++        "damage": ""
++      },
++      "rwak": {
++        "attack": "",
++        "damage": ""
++      },
++      "msak": {
++        "attack": "",
++        "damage": ""
++      },
++      "rsak": {
++        "attack": "",
++        "damage": ""
++      },
++      "abilities": {
++        "check": "",
++        "save": "",
++        "skill": ""
++      },
++      "spell": {
++        "dc": ""
++      }
++    },
++    "skills": {
++      "acr": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ani": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "arc": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ath": {
++        "ability": "str",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "dec": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "his": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ins": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "itm": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "inv": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "med": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "nat": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "prc": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "prf": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "per": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "rel": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "slt": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ste": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "sur": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      }
++    },
++    "tools": {},
++    "spells": {
++      "spell1": {
++        "value": 0,
++        "override": null
++      },
++      "spell2": {
++        "value": 0,
++        "override": null
++      },
++      "spell3": {
++        "value": 0,
++        "override": null
++      },
++      "spell4": {
++        "value": 0,
++        "override": null
++      },
++      "spell5": {
++        "value": 0,
++        "override": null
++      },
++      "spell6": {
++        "value": 0,
++        "override": null
++      },
++      "spell7": {
++        "value": 0,
++        "override": null
++      },
++      "spell8": {
++        "value": 0,
++        "override": null
++      },
++      "spell9": {
++        "value": 0,
++        "override": null
++      },
++      "pact": {
++        "value": 0,
++        "override": null
++      }
++    },
++    "attributes": {
++      "init": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "bonus": ""
++      },
++      "movement": {
++        "burrow": null,
++        "climb": null,
++        "fly": null,
++        "swim": null,
++        "walk": null,
++        "units": null,
++        "hover": false
++      },
++      "attunement": {
++        "max": 3
++      },
++      "senses": {
++        "darkvision": null,
++        "blindsight": null,
++        "tremorsense": null,
++        "truesight": null,
++        "units": null,
++        "special": ""
++      },
++      "spellcasting": "",
++      "exhaustion": 0,
++      "concentration": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "bonuses": {
++          "save": ""
++        },
++        "limit": 1
++      },
++      "loyalty": {
++        "value": null
++      },
++      "ac": {
++        "flat": null,
++        "calc": "mage"
++      },
++      "hp": {
++        "value": 0,
++        "max": null,
++        "temp": null,
++        "tempmax": 0,
++        "bonuses": {}
++      },
++      "death": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "success": 0,
++        "failure": 0,
++        "bonuses": {
++          "save": ""
++        }
++      },
++      "inspiration": false
++    },
++    "bastion": {
++      "name": "",
++      "description": ""
++    },
++    "details": {
++      "biography": {
++        "value": "",
++        "public": ""
++      },
++      "alignment": "",
++      "ideal": "",
++      "bond": "",
++      "flaw": "",
++      "race": null,
++      "background": null,
++      "originalClass": "",
++      "xp": {
++        "value": 0
++      },
++      "appearance": "",
++      "trait": "",
++      "eyes": "",
++      "height": "",
++      "faith": "",
++      "hair": "",
++      "weight": "",
++      "gender": "",
++      "skin": "",
++      "age": ""
++    },
++    "traits": {
++      "size": "med",
++      "di": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dr": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dv": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dm": {
++        "amount": {},
++        "bypasses": []
++      },
++      "ci": {
++        "value": [],
++        "custom": ""
++      },
++      "languages": {
++        "value": [],
++        "custom": "",
++        "communication": {}
++      },
++      "weaponProf": {
++        "value": [],
++        "custom": "",
++        "mastery": {
++          "value": [],
++          "bonus": []
++        }
++      },
++      "armorProf": {
++        "value": [],
++        "custom": ""
++      }
++    },
++    "resources": {
++      "primary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      },
++      "secondary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      },
++      "tertiary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      }
++    },
++    "favorites": []
++  },
++  "prototypeToken": {
++    "name": "ACTestMageArmor",
++    "displayName": 0,
++    "actorLink": true,
++    "appendNumber": false,
++    "prependAdjective": false,
++    "width": 1,
++    "height": 1,
++    "texture": {
++      "src": "icons/svg/mystery-man.svg",
++      "anchorX": 0.5,
++      "anchorY": 0.5,
++      "offsetX": 0,
++      "offsetY": 0,
++      "fit": "contain",
++      "scaleX": 1,
++      "scaleY": 1,
++      "rotation": 0,
++      "tint": "#ffffff",
++      "alphaThreshold": 0.75
++    },
++    "hexagonalShape": 0,
++    "lockRotation": false,
++    "rotation": 0,
++    "alpha": 1,
++    "disposition": 1,
++    "displayBars": 0,
++    "bar1": {
++      "attribute": "attributes.hp"
++    },
++    "bar2": {
++      "attribute": null
++    },
++    "light": {
++      "negative": false,
++      "priority": 0,
++      "alpha": 0.5,
++      "angle": 360,
++      "bright": 0,
++      "color": null,
++      "coloration": 1,
++      "dim": 0,
++      "attenuation": 0.5,
++      "luminosity": 0.5,
++      "saturation": 0,
++      "contrast": 0,
++      "shadows": 0,
++      "animation": {
++        "type": null,
++        "speed": 5,
++        "intensity": 5,
++        "reverse": false
++      },
++      "darkness": {
++        "min": 0,
++        "max": 1
++      }
++    },
++    "sight": {
++      "enabled": true,
++      "range": 0,
++      "angle": 360,
++      "visionMode": "basic",
++      "color": null,
++      "attenuation": 0.1,
++      "brightness": 0,
++      "saturation": 0,
++      "contrast": 0
++    },
++    "detectionModes": [],
++    "occludable": {
++      "radius": 0
++    },
++    "ring": {
++      "enabled": false,
++      "colors": {
++        "ring": null,
++        "background": null
++      },
++      "effects": 1,
++      "subject": {
++        "scale": 1,
++        "texture": null
++      }
++    },
++    "flags": {},
++    "randomImg": false
++  },
++  "items": [
++    {
++      "_id": "UvIWic1rhHP7kHlc",
++      "name": "Cloak of Protection",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/back/cloak-heavy-fur-blue.webp",
++      "system": {
++        "description": {
++          "value": "<p><em>Wondrous item, (requires attunement)</em></p>\n<p>You gain a +1 bonus to AC and saving throws while you wear this cloak.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 3,
++          "units": "lb"
++        },
++        "price": {
++          "value": 3500,
++          "denomination": "gp"
++        },
++        "attunement": "required",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 0,
++          "dex": 0,
++          "magicalBonus": null
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "clothing",
++          "baseItem": ""
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "crewed": false,
++        "properties": [
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "cloak-of-protection",
++        "attuned": true,
++        "equipped": true
++      },
++      "effects": [
++        {
++          "_id": "jxfin1rh71p1xjjv",
++          "changes": [
++            {
++              "key": "system.attributes.ac.bonus",
++              "mode": 2,
++              "value": "+1",
++              "priority": null
++            },
++            {
++              "key": "system.bonuses.abilities.save",
++              "mode": 2,
++              "value": "+1",
++              "priority": null
++            }
++          ],
++          "disabled": false,
++          "duration": {
++            "startTime": 0,
++            "seconds": null,
++            "combat": null,
++            "rounds": null,
++            "turns": null,
++            "startRound": null,
++            "startTurn": null
++          },
++          "origin": "Compendium.dnd5e.items.lvaMqEhfidfHDGf5",
++          "transfer": true,
++          "flags": {},
++          "tint": "#ffffff",
++          "name": "+1 to AC & Saves",
++          "description": "",
++          "statuses": [],
++          "_stats": {
++            "compendiumSource": null,
++            "duplicateSource": null,
++            "coreVersion": "12.331",
++            "systemId": "dnd5e",
++            "systemVersion": "4.2.2",
++            "createdTime": null,
++            "modifiedTime": null,
++            "lastModifiedBy": null
++          },
++          "img": "icons/equipment/back/cloak-heavy-fur-blue.webp",
++          "type": "base",
++          "system": {},
++          "sort": 0
++        }
++      ],
++      "folder": "aJgMxnZED9XdoN2W",
++      "sort": 0,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.lvaMqEhfidfHDGf5",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739099776137,
++        "modifiedTime": 1739099870301,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    },
++    {
++      "_id": "9DhY0qgbrzhVrhgN",
++      "name": "Shield +1",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/shield/round-wooden-boss-gold-brown.webp",
++      "system": {
++        "description": {
++          "value": "<p>While holding this shield, you have a bonus to AC of +1. This bonus is in addition to the shield's normal bonus to AC.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 6,
++          "units": "lb"
++        },
++        "price": {
++          "value": 1500,
++          "denomination": "gp"
++        },
++        "attunement": "",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "crewed": false,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 2,
++          "dex": null,
++          "magicalBonus": 1
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "shield",
++          "baseItem": "shield"
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "properties": [
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "shield-1",
++        "attuned": false,
++        "equipped": true
++      },
++      "effects": [],
++      "folder": null,
++      "sort": 200000,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.NgwrqNa6kkgoPW2Q",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739099855841,
++        "modifiedTime": 1739099870793,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    }
++  ],
++  "effects": [],
++  "flags": {
++    "dnd5e": {
++      "showTokenPortrait": false
++    },
++    "exportSource": {
++      "world": "testworld",
++      "system": "dnd5e",
++      "coreVersion": "12.331",
++      "systemVersion": "4.2.2"
++    }
++  },
++  "_stats": {
++    "coreVersion": "12.331",
++    "systemId": "dnd5e",
++    "systemVersion": "4.2.2",
++    "createdTime": 1739099381294,
++    "modifiedTime": 1739100932061,
++    "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++  }
++}
+\ No newline at end of file
+diff --git a/src/resources/playercharacters/ACTest/fvtt-Actor-actestmagearmor_draconicresilience2-MG4tI0P0fVfZmxJj.json b/src/resources/playercharacters/ACTest/fvtt-Actor-actestmagearmor_draconicresilience2-MG4tI0P0fVfZmxJj.json
+new file mode 100644
+index 0000000..3415f6f
+--- /dev/null
++++ b/src/resources/playercharacters/ACTest/fvtt-Actor-actestmagearmor_draconicresilience2-MG4tI0P0fVfZmxJj.json
+@@ -0,0 +1,883 @@
++{
++  "folder": "zpbtirz329rtU5GN",
++  "name": "ACTestMageArmor_DraconicResilience",
++  "type": "character",
++  "img": "icons/svg/mystery-man.svg",
++  "system": {
++    "currency": {
++      "pp": 0,
++      "gp": 0,
++      "ep": 0,
++      "sp": 0,
++      "cp": 0
++    },
++    "abilities": {
++      "str": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "dex": {
++        "value": 16,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "con": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "int": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "wis": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "cha": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      }
++    },
++    "bonuses": {
++      "mwak": {
++        "attack": "",
++        "damage": ""
++      },
++      "rwak": {
++        "attack": "",
++        "damage": ""
++      },
++      "msak": {
++        "attack": "",
++        "damage": ""
++      },
++      "rsak": {
++        "attack": "",
++        "damage": ""
++      },
++      "abilities": {
++        "check": "",
++        "save": "",
++        "skill": ""
++      },
++      "spell": {
++        "dc": ""
++      }
++    },
++    "skills": {
++      "acr": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ani": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "arc": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ath": {
++        "ability": "str",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "dec": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "his": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ins": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "itm": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "inv": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "med": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "nat": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "prc": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "prf": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "per": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "rel": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "slt": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ste": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "sur": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      }
++    },
++    "tools": {},
++    "spells": {
++      "spell1": {
++        "value": 0,
++        "override": null
++      },
++      "spell2": {
++        "value": 0,
++        "override": null
++      },
++      "spell3": {
++        "value": 0,
++        "override": null
++      },
++      "spell4": {
++        "value": 0,
++        "override": null
++      },
++      "spell5": {
++        "value": 0,
++        "override": null
++      },
++      "spell6": {
++        "value": 0,
++        "override": null
++      },
++      "spell7": {
++        "value": 0,
++        "override": null
++      },
++      "spell8": {
++        "value": 0,
++        "override": null
++      },
++      "spell9": {
++        "value": 0,
++        "override": null
++      },
++      "pact": {
++        "value": 0,
++        "override": null
++      }
++    },
++    "attributes": {
++      "init": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "bonus": ""
++      },
++      "movement": {
++        "burrow": null,
++        "climb": null,
++        "fly": null,
++        "swim": null,
++        "walk": null,
++        "units": null,
++        "hover": false
++      },
++      "attunement": {
++        "max": 3
++      },
++      "senses": {
++        "darkvision": null,
++        "blindsight": null,
++        "tremorsense": null,
++        "truesight": null,
++        "units": null,
++        "special": ""
++      },
++      "spellcasting": "",
++      "exhaustion": 0,
++      "concentration": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "bonuses": {
++          "save": ""
++        },
++        "limit": 1
++      },
++      "loyalty": {
++        "value": null
++      },
++      "ac": {
++        "flat": null,
++        "calc": "draconic"
++      },
++      "hp": {
++        "value": 0,
++        "max": null,
++        "temp": null,
++        "tempmax": 0,
++        "bonuses": {}
++      },
++      "death": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "success": 0,
++        "failure": 0,
++        "bonuses": {
++          "save": ""
++        }
++      },
++      "inspiration": false
++    },
++    "bastion": {
++      "name": "",
++      "description": ""
++    },
++    "details": {
++      "biography": {
++        "value": "",
++        "public": ""
++      },
++      "alignment": "",
++      "ideal": "",
++      "bond": "",
++      "flaw": "",
++      "race": null,
++      "background": null,
++      "originalClass": "",
++      "xp": {
++        "value": 0
++      },
++      "appearance": "",
++      "trait": "",
++      "eyes": "",
++      "height": "",
++      "faith": "",
++      "hair": "",
++      "weight": "",
++      "gender": "",
++      "skin": "",
++      "age": ""
++    },
++    "traits": {
++      "size": "med",
++      "di": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dr": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dv": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dm": {
++        "amount": {},
++        "bypasses": []
++      },
++      "ci": {
++        "value": [],
++        "custom": ""
++      },
++      "languages": {
++        "value": [],
++        "custom": "",
++        "communication": {}
++      },
++      "weaponProf": {
++        "value": [],
++        "custom": "",
++        "mastery": {
++          "value": [],
++          "bonus": []
++        }
++      },
++      "armorProf": {
++        "value": [],
++        "custom": ""
++      }
++    },
++    "resources": {
++      "primary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      },
++      "secondary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      },
++      "tertiary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      }
++    },
++    "favorites": []
++  },
++  "prototypeToken": {
++    "name": "ACTestMageArmor",
++    "displayName": 0,
++    "actorLink": true,
++    "appendNumber": false,
++    "prependAdjective": false,
++    "width": 1,
++    "height": 1,
++    "texture": {
++      "src": "icons/svg/mystery-man.svg",
++      "anchorX": 0.5,
++      "anchorY": 0.5,
++      "offsetX": 0,
++      "offsetY": 0,
++      "fit": "contain",
++      "scaleX": 1,
++      "scaleY": 1,
++      "rotation": 0,
++      "tint": "#ffffff",
++      "alphaThreshold": 0.75
++    },
++    "hexagonalShape": 0,
++    "lockRotation": false,
++    "rotation": 0,
++    "alpha": 1,
++    "disposition": 1,
++    "displayBars": 0,
++    "bar1": {
++      "attribute": "attributes.hp"
++    },
++    "bar2": {
++      "attribute": null
++    },
++    "light": {
++      "negative": false,
++      "priority": 0,
++      "alpha": 0.5,
++      "angle": 360,
++      "bright": 0,
++      "color": null,
++      "coloration": 1,
++      "dim": 0,
++      "attenuation": 0.5,
++      "luminosity": 0.5,
++      "saturation": 0,
++      "contrast": 0,
++      "shadows": 0,
++      "animation": {
++        "type": null,
++        "speed": 5,
++        "intensity": 5,
++        "reverse": false
++      },
++      "darkness": {
++        "min": 0,
++        "max": 1
++      }
++    },
++    "sight": {
++      "enabled": true,
++      "range": 0,
++      "angle": 360,
++      "visionMode": "basic",
++      "color": null,
++      "attenuation": 0.1,
++      "brightness": 0,
++      "saturation": 0,
++      "contrast": 0
++    },
++    "detectionModes": [],
++    "occludable": {
++      "radius": 0
++    },
++    "ring": {
++      "enabled": false,
++      "colors": {
++        "ring": null,
++        "background": null
++      },
++      "effects": 1,
++      "subject": {
++        "scale": 1,
++        "texture": null
++      }
++    },
++    "flags": {},
++    "randomImg": false
++  },
++  "items": [
++    {
++      "_id": "UvIWic1rhHP7kHlc",
++      "name": "Cloak of Protection",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/back/cloak-heavy-fur-blue.webp",
++      "system": {
++        "description": {
++          "value": "<p><em>Wondrous item, (requires attunement)</em></p>\n<p>You gain a +1 bonus to AC and saving throws while you wear this cloak.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 3,
++          "units": "lb"
++        },
++        "price": {
++          "value": 3500,
++          "denomination": "gp"
++        },
++        "attunement": "required",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 0,
++          "dex": 0,
++          "magicalBonus": null
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "clothing",
++          "baseItem": ""
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "crewed": false,
++        "properties": [
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "cloak-of-protection",
++        "attuned": true,
++        "equipped": true
++      },
++      "effects": [
++        {
++          "_id": "jxfin1rh71p1xjjv",
++          "changes": [
++            {
++              "key": "system.attributes.ac.bonus",
++              "mode": 2,
++              "value": "+1",
++              "priority": null
++            },
++            {
++              "key": "system.bonuses.abilities.save",
++              "mode": 2,
++              "value": "+1",
++              "priority": null
++            }
++          ],
++          "disabled": false,
++          "duration": {
++            "startTime": 0,
++            "seconds": null,
++            "combat": null,
++            "rounds": null,
++            "turns": null,
++            "startRound": null,
++            "startTurn": null
++          },
++          "origin": "Compendium.dnd5e.items.lvaMqEhfidfHDGf5",
++          "transfer": true,
++          "flags": {},
++          "tint": "#ffffff",
++          "name": "+1 to AC & Saves",
++          "description": "",
++          "statuses": [],
++          "_stats": {
++            "compendiumSource": null,
++            "duplicateSource": null,
++            "coreVersion": "12.331",
++            "systemId": "dnd5e",
++            "systemVersion": "4.2.2",
++            "createdTime": null,
++            "modifiedTime": null,
++            "lastModifiedBy": null
++          },
++          "img": "icons/equipment/back/cloak-heavy-fur-blue.webp",
++          "type": "base",
++          "system": {},
++          "sort": 0
++        }
++      ],
++      "folder": "aJgMxnZED9XdoN2W",
++      "sort": 0,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.lvaMqEhfidfHDGf5",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739099776137,
++        "modifiedTime": 1739099870301,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    },
++    {
++      "_id": "9DhY0qgbrzhVrhgN",
++      "name": "Shield +1",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/shield/round-wooden-boss-gold-brown.webp",
++      "system": {
++        "description": {
++          "value": "<p>While holding this shield, you have a bonus to AC of +1. This bonus is in addition to the shield's normal bonus to AC.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 6,
++          "units": "lb"
++        },
++        "price": {
++          "value": 1500,
++          "denomination": "gp"
++        },
++        "attunement": "",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "crewed": false,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 2,
++          "dex": null,
++          "magicalBonus": 1
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "shield",
++          "baseItem": "shield"
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "properties": [
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "shield-1",
++        "attuned": false,
++        "equipped": true
++      },
++      "effects": [],
++      "folder": null,
++      "sort": 200000,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.NgwrqNa6kkgoPW2Q",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739099855841,
++        "modifiedTime": 1739099870793,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    }
++  ],
++  "effects": [],
++  "flags": {
++    "dnd5e": {
++      "showTokenPortrait": false
++    },
++    "exportSource": {
++      "world": "testworld",
++      "system": "dnd5e",
++      "coreVersion": "12.331",
++      "systemVersion": "4.2.2"
++    }
++  },
++  "_stats": {
++    "coreVersion": "12.331",
++    "systemId": "dnd5e",
++    "systemVersion": "4.2.2",
++    "createdTime": 1739099381294,
++    "modifiedTime": 1739108945096,
++    "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++  }
++}
+\ No newline at end of file
+diff --git a/src/resources/playercharacters/ACTest/fvtt-Actor-actestmonk-wMDAYUvJlGJqaUG9.json b/src/resources/playercharacters/ACTest/fvtt-Actor-actestmonk-wMDAYUvJlGJqaUG9.json
+new file mode 100644
+index 0000000..f9c04b8
+--- /dev/null
++++ b/src/resources/playercharacters/ACTest/fvtt-Actor-actestmonk-wMDAYUvJlGJqaUG9.json
+@@ -0,0 +1,883 @@
++{
++  "folder": "zpbtirz329rtU5GN",
++  "name": "ACTestMonk",
++  "type": "character",
++  "img": "icons/svg/mystery-man.svg",
++  "system": {
++    "currency": {
++      "pp": 0,
++      "gp": 0,
++      "ep": 0,
++      "sp": 0,
++      "cp": 0
++    },
++    "abilities": {
++      "str": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "dex": {
++        "value": 16,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "con": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "int": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "wis": {
++        "value": 16,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      },
++      "cha": {
++        "value": 10,
++        "proficient": 0,
++        "max": null,
++        "bonuses": {
++          "check": "",
++          "save": ""
++        }
++      }
++    },
++    "bonuses": {
++      "mwak": {
++        "attack": "",
++        "damage": ""
++      },
++      "rwak": {
++        "attack": "",
++        "damage": ""
++      },
++      "msak": {
++        "attack": "",
++        "damage": ""
++      },
++      "rsak": {
++        "attack": "",
++        "damage": ""
++      },
++      "abilities": {
++        "check": "",
++        "save": "",
++        "skill": ""
++      },
++      "spell": {
++        "dc": ""
++      }
++    },
++    "skills": {
++      "acr": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ani": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "arc": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ath": {
++        "ability": "str",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "dec": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "his": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ins": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "itm": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "inv": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "med": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "nat": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "prc": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "prf": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "per": {
++        "ability": "cha",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "rel": {
++        "ability": "int",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "slt": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "ste": {
++        "ability": "dex",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      },
++      "sur": {
++        "ability": "wis",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "value": 0,
++        "bonuses": {
++          "check": "",
++          "passive": ""
++        }
++      }
++    },
++    "tools": {},
++    "spells": {
++      "spell1": {
++        "value": 0,
++        "override": null
++      },
++      "spell2": {
++        "value": 0,
++        "override": null
++      },
++      "spell3": {
++        "value": 0,
++        "override": null
++      },
++      "spell4": {
++        "value": 0,
++        "override": null
++      },
++      "spell5": {
++        "value": 0,
++        "override": null
++      },
++      "spell6": {
++        "value": 0,
++        "override": null
++      },
++      "spell7": {
++        "value": 0,
++        "override": null
++      },
++      "spell8": {
++        "value": 0,
++        "override": null
++      },
++      "spell9": {
++        "value": 0,
++        "override": null
++      },
++      "pact": {
++        "value": 0,
++        "override": null
++      }
++    },
++    "attributes": {
++      "init": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "bonus": ""
++      },
++      "movement": {
++        "burrow": null,
++        "climb": null,
++        "fly": null,
++        "swim": null,
++        "walk": null,
++        "units": null,
++        "hover": false
++      },
++      "attunement": {
++        "max": 3
++      },
++      "senses": {
++        "darkvision": null,
++        "blindsight": null,
++        "tremorsense": null,
++        "truesight": null,
++        "units": null,
++        "special": ""
++      },
++      "spellcasting": "",
++      "exhaustion": 0,
++      "concentration": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "bonuses": {
++          "save": ""
++        },
++        "limit": 1
++      },
++      "loyalty": {
++        "value": null
++      },
++      "ac": {
++        "flat": null,
++        "calc": "unarmoredMonk"
++      },
++      "hp": {
++        "value": 0,
++        "max": null,
++        "temp": null,
++        "tempmax": 0,
++        "bonuses": {}
++      },
++      "death": {
++        "ability": "",
++        "roll": {
++          "min": null,
++          "max": null,
++          "mode": 0
++        },
++        "success": 0,
++        "failure": 0,
++        "bonuses": {
++          "save": ""
++        }
++      },
++      "inspiration": false
++    },
++    "bastion": {
++      "name": "",
++      "description": ""
++    },
++    "details": {
++      "biography": {
++        "value": "",
++        "public": ""
++      },
++      "alignment": "",
++      "ideal": "",
++      "bond": "",
++      "flaw": "",
++      "race": null,
++      "background": null,
++      "originalClass": "",
++      "xp": {
++        "value": 0
++      },
++      "appearance": "",
++      "trait": "",
++      "eyes": "",
++      "height": "",
++      "faith": "",
++      "hair": "",
++      "weight": "",
++      "gender": "",
++      "skin": "",
++      "age": ""
++    },
++    "traits": {
++      "size": "med",
++      "di": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dr": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dv": {
++        "value": [],
++        "custom": "",
++        "bypasses": []
++      },
++      "dm": {
++        "amount": {},
++        "bypasses": []
++      },
++      "ci": {
++        "value": [],
++        "custom": ""
++      },
++      "languages": {
++        "value": [],
++        "custom": "",
++        "communication": {}
++      },
++      "weaponProf": {
++        "value": [],
++        "custom": "",
++        "mastery": {
++          "value": [],
++          "bonus": []
++        }
++      },
++      "armorProf": {
++        "value": [],
++        "custom": ""
++      }
++    },
++    "resources": {
++      "primary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      },
++      "secondary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      },
++      "tertiary": {
++        "value": 0,
++        "max": 0,
++        "sr": false,
++        "lr": false,
++        "label": ""
++      }
++    },
++    "favorites": []
++  },
++  "prototypeToken": {
++    "name": "ACTestMonk",
++    "displayName": 0,
++    "actorLink": true,
++    "appendNumber": false,
++    "prependAdjective": false,
++    "width": 1,
++    "height": 1,
++    "texture": {
++      "src": "icons/svg/mystery-man.svg",
++      "anchorX": 0.5,
++      "anchorY": 0.5,
++      "offsetX": 0,
++      "offsetY": 0,
++      "fit": "contain",
++      "scaleX": 1,
++      "scaleY": 1,
++      "rotation": 0,
++      "tint": "#ffffff",
++      "alphaThreshold": 0.75
++    },
++    "hexagonalShape": 0,
++    "lockRotation": false,
++    "rotation": 0,
++    "alpha": 1,
++    "disposition": 1,
++    "displayBars": 0,
++    "bar1": {
++      "attribute": "attributes.hp"
++    },
++    "bar2": {
++      "attribute": null
++    },
++    "light": {
++      "negative": false,
++      "priority": 0,
++      "alpha": 0.5,
++      "angle": 360,
++      "bright": 0,
++      "color": null,
++      "coloration": 1,
++      "dim": 0,
++      "attenuation": 0.5,
++      "luminosity": 0.5,
++      "saturation": 0,
++      "contrast": 0,
++      "shadows": 0,
++      "animation": {
++        "type": null,
++        "speed": 5,
++        "intensity": 5,
++        "reverse": false
++      },
++      "darkness": {
++        "min": 0,
++        "max": 1
++      }
++    },
++    "sight": {
++      "enabled": true,
++      "range": 0,
++      "angle": 360,
++      "visionMode": "basic",
++      "color": null,
++      "attenuation": 0.1,
++      "brightness": 0,
++      "saturation": 0,
++      "contrast": 0
++    },
++    "detectionModes": [],
++    "occludable": {
++      "radius": 0
++    },
++    "ring": {
++      "enabled": false,
++      "colors": {
++        "ring": null,
++        "background": null
++      },
++      "effects": 1,
++      "subject": {
++        "scale": 1,
++        "texture": null
++      }
++    },
++    "flags": {},
++    "randomImg": false
++  },
++  "items": [
++    {
++      "_id": "ngWkePfJhbuFMZ2J",
++      "name": "Cloak of Protection",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/back/cloak-heavy-fur-blue.webp",
++      "system": {
++        "description": {
++          "value": "<p><em>Wondrous item, (requires attunement)</em></p>\n<p>You gain a +1 bonus to AC and saving throws while you wear this cloak.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 3,
++          "units": "lb"
++        },
++        "price": {
++          "value": 3500,
++          "denomination": "gp"
++        },
++        "attunement": "required",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 0,
++          "dex": 0,
++          "magicalBonus": null
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "clothing",
++          "baseItem": ""
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "crewed": false,
++        "properties": [
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "cloak-of-protection",
++        "attuned": true,
++        "equipped": true
++      },
++      "effects": [
++        {
++          "_id": "jxfin1rh71p1xjjv",
++          "changes": [
++            {
++              "key": "system.attributes.ac.bonus",
++              "mode": 2,
++              "value": "+1",
++              "priority": null
++            },
++            {
++              "key": "system.bonuses.abilities.save",
++              "mode": 2,
++              "value": "+1",
++              "priority": null
++            }
++          ],
++          "disabled": false,
++          "duration": {
++            "startTime": 0,
++            "seconds": null,
++            "combat": null,
++            "rounds": null,
++            "turns": null,
++            "startRound": null,
++            "startTurn": null
++          },
++          "origin": "Compendium.dnd5e.items.lvaMqEhfidfHDGf5",
++          "transfer": true,
++          "flags": {},
++          "tint": "#ffffff",
++          "name": "+1 to AC & Saves",
++          "description": "",
++          "statuses": [],
++          "_stats": {
++            "compendiumSource": null,
++            "duplicateSource": null,
++            "coreVersion": "12.331",
++            "systemId": "dnd5e",
++            "systemVersion": "4.2.2",
++            "createdTime": null,
++            "modifiedTime": null,
++            "lastModifiedBy": null
++          },
++          "img": "icons/equipment/back/cloak-heavy-fur-blue.webp",
++          "type": "base",
++          "system": {},
++          "sort": 0
++        }
++      ],
++      "folder": "aJgMxnZED9XdoN2W",
++      "sort": 0,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.lvaMqEhfidfHDGf5",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739097204238,
++        "modifiedTime": 1739097217516,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    },
++    {
++      "_id": "4a6eZsx3SGraGpnz",
++      "name": "Shield +1",
++      "type": "equipment",
++      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/shield/round-wooden-boss-gold-brown.webp",
++      "system": {
++        "description": {
++          "value": "<p>While holding this shield, you have a bonus to AC of +1. This bonus is in addition to the shield's normal bonus to AC.</p>",
++          "chat": ""
++        },
++        "source": {
++          "custom": "",
++          "book": "SRD 5.1",
++          "page": "",
++          "license": "CC-BY-4.0",
++          "rules": "2014",
++          "revision": 1
++        },
++        "quantity": 1,
++        "weight": {
++          "value": 6,
++          "units": "lb"
++        },
++        "price": {
++          "value": 1500,
++          "denomination": "gp"
++        },
++        "attunement": "",
++        "rarity": "uncommon",
++        "identified": true,
++        "cover": null,
++        "crewed": false,
++        "uses": {
++          "max": "",
++          "spent": 0,
++          "recovery": []
++        },
++        "armor": {
++          "value": 2,
++          "dex": null,
++          "magicalBonus": 1
++        },
++        "hp": {
++          "value": 0,
++          "max": 0,
++          "dt": null,
++          "conditions": ""
++        },
++        "speed": {
++          "value": null,
++          "conditions": ""
++        },
++        "strength": null,
++        "proficient": null,
++        "type": {
++          "value": "shield",
++          "baseItem": "shield"
++        },
++        "unidentified": {
++          "description": ""
++        },
++        "container": null,
++        "properties": [
++          "mgc"
++        ],
++        "activities": {},
++        "identifier": "shield-1",
++        "attuned": false,
++        "equipped": true
++      },
++      "effects": [],
++      "folder": "JqTP017wj3uxDJ8g",
++      "sort": 0,
++      "ownership": {
++        "default": 0,
++        "dExGgwFJ8iVWwvHp": 3
++      },
++      "flags": {},
++      "_stats": {
++        "duplicateSource": null,
++        "compendiumSource": "Compendium.dnd5e.items.Item.NgwrqNa6kkgoPW2Q",
++        "coreVersion": "12.331",
++        "systemId": "dnd5e",
++        "systemVersion": "4.2.2",
++        "createdTime": 1739097213325,
++        "modifiedTime": 1739097217887,
++        "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++      }
++    }
++  ],
++  "effects": [],
++  "flags": {
++    "dnd5e": {
++      "showTokenPortrait": false
++    },
++    "exportSource": {
++      "world": "testworld",
++      "system": "dnd5e",
++      "coreVersion": "12.331",
++      "systemVersion": "4.2.2"
++    }
++  },
++  "_stats": {
++    "coreVersion": "12.331",
++    "systemId": "dnd5e",
++    "systemVersion": "4.2.2",
++    "createdTime": 1739096882576,
++    "modifiedTime": 1739100426217,
++    "lastModifiedBy": "dExGgwFJ8iVWwvHp"
++  }
++}
+\ No newline at end of file
+diff --git a/src/tests/dbTest.py b/src/tests/dbTest.py
+new file mode 100644
+index 0000000..fe73f8a
+--- /dev/null
++++ b/src/tests/dbTest.py
+@@ -0,0 +1,59 @@
++import math
++
++from src.entities.actors.actor import Actor
++import json
++from pathlib import Path
++
++actorDictionary = {
++    "id": 0,
++    "name": 'TestName',
++    "description": 'TestDesc',
++    "armorClass": 10,
++    "hitPoints": 10,
++    "averageSave": 0.0,
++    "toHitBonus": 0,
++    "saveDC": 0,
++    "baseDPR": 0.0,
++    "maxDpr": 0.0
++}
++
++##test = Actor.fromDictionary(actorDictionary)
++##Actor.insertActorDirect(test)
++
++##print(test.name)
++root = Path(__file__).parent.parent
++data_path = root/'resources/playercharacters/ACTest/fvtt-Actor-actestdefault_equippedarmor-0QfxTPkPy7AAdang.json'
++with open(data_path) as file:
++    json_data = json.load(file)
++
++    result = int(10)
++    dexMod = int(math.floor((json_data['system']['abilities']['dex']['value'] - 10) / 2))
++
++    for each in json_data['items']:
++        attunement_required = str(each['system']['attunement'])
++        attuned = bool(each['system']['attuned'])
++        equipped = bool(each['system']['equipped'])
++        dexcap = each['system']['armor']['dex']
++        base_armor = int(each['system']['armor']['value'])
++        bonus_armor = each['system']['armor']['magicalBonus']
++
++        if bonus_armor is None:
++            bonus_armor = int(0)
++
++        armor_type = str(each['system']['type']['value'])
++
++        armor_types_list = ['light', 'medium', 'heavy']
++
++        if (attunement_required == 'required') & (attuned == False):
++            continue
++
++        if armor_types_list.__contains__(armor_type):
++            if dexcap is not None:
++                result = base_armor + min(dexMod, dexcap) + bonus_armor
++        else:
++            result += base_armor + bonus_armor
++
++
++    print(result)
++
++    ##print(Actor.getArmorClass(json_data))
+\ No newline at end of file
+diff --git a/src/web_scraper/scrapetest.py b/src/web_scraper/scrapetest.py
+new file mode 100644
+index 0000000..e8ccfbf
+--- /dev/null
++++ b/src/web_scraper/scrapetest.py
+@@ -0,0 +1,25 @@
++import requests as req
++import json
++
++url = "https://anydice.com/calculator_limited.php"
++
++querystring = {}
++
++payload = {
++    'program': '''
++    output 1d20 > 10 named "attackTest1"
++    output 1d20 > 15 named "attackTest2"
++    '''
++}
++
++headers = {
++    ##"cookie": "anydice=e99494286ddf8112367ddc9b39090a9b"
++}
++
++response1 = req.post(url, data=payload)
++
++dataDictionary = json.loads(response1.content)
++
++print(dataDictionary["distributions"])
++
++##print(response1.text)
+\ No newline at end of file
+-- 
+2.43.0
+

@@ -1,0 +1,1 @@
+dbPath = str("src/db/encounterBuilder.db")
