@@ -6,42 +6,16 @@ from sqlite3 import Connection
 import src.db.dbConst as dbConst
 from typing import Dict
 
-def getDefaultEquippedArmorAC(jsonDict: Dict) -> int:
-    # presumi che la scheda sia stata compilata correttamente e che l'equip abbia senso
-    # Trova in items[] tutti gli oggetti che abbiano armor.value != null (possono essere armature, scudi o altri oggetti che diano bonus alla CA)
-    # Trova in questa lista l'armatura (presumiamo sia solo una) e determina: AC base, max Dex, eventuali bonus.
-    # Per ciascun altro oggetto nella lista, somma il valore di AC e aggingilo alla formula: Base + min(Dex | max Dex) + magical bonus + other bonuses
+def getEffectBonus(each: Dict, equipped: bool): ## jsonDict['items']
+    if not equipped:
+        return 0
+    effect_bonus = int(0)
+    for effect in each['effects']:
+        for change in effect['changes']:
+            if change['key'] == str('system.attributes.ac.bonus'):
+                effect_bonus += int(change['value'])
+    return effect_bonus
 
-    # items.system.attunement = "required"? per tutti gli oggetti che danno AC
-    # effects.changes.key = "system.attributes.ac.bonus"
-        # effects.changes.value (convertire stringa a int)
-    # items.system.type.value = "shield" per gli scudi
-    #
-    for each in Dict['items']:
-        attunementRequirement: str(each['system']['attunement'])
-    # TEST: RETURN 1
-    return 1
-
-def getUnarmoredMonkAC(jsonDict: Dict) -> int:
-    dexMod = int(math.floor((jsonDict['system']['abilities']['dex']['value'] - 10) / 2))
-    wisMod = int(math.floor((jsonDict['system']['abilities']['wis']['value'] - 10) / 2))
-    return 10 + dexMod + wisMod
-
-def getUnarmoredBarbarianAC(jsonDict: Dict) -> int:
-    dexMod = int(math.floor((jsonDict['system']['abilities']['dex']['value'] - 10) / 2))
-    conMod = int(math.floor((jsonDict['system']['abilities']['con']['value'] - 10) / 2))
-    return 10 + dexMod + conMod
-
-def getUnarmoredBardAC(jsonDict: Dict) -> int:
-    dexMod = int(math.floor((jsonDict['system']['abilities']['dex']['value'] - 10) / 2))
-    chaMod = int(math.floor((jsonDict['system']['abilities']['cha']['value'] - 10) / 2))
-    return 10 + dexMod + chaMod
-
-def getMageArmorDraconicResilienceAC(jsonDict: Dict) -> int:
-    dexMod = int(math.floor((jsonDict['system']['abilities']['dex']['value'] - 10) / 2))
-    return 13 + dexMod
-
-    
 class Actor:
 
     sqlFields: str = "NAME, DESCRIPTION, ARMORCLASS, HITPOINTS, AVERAGESAVE, TOHITBONUS, SAVEDC, BASEDPR, MAXDPR"
@@ -134,24 +108,61 @@ class Actor:
         pass
 
     def getArmorClass(jsonDict: Dict) -> int:
-        jsonFlatAc: int = jsonDict["system"]["attributes"]["ac"]["flat"]
-        if jsonFlatAc != None:
-            return jsonFlatAc
-        
-        
-        jsonAcCalc: str = jsonDict["system"]["attributes"]["ac"]["calc"]
-        match jsonAcCalc:
-            case "unarmoredBard":
-                return getUnarmoredBardAC(jsonDict)
+        result = int(0)
+
+        acCalculation: str = str(jsonDict["system"]["attributes"]["ac"]["calc"])
+
+        flatAcCalculations = ['natural', 'flat']
+        if flatAcCalculations.__contains__(acCalculation):
+            return jsonDict["system"]["attributes"]["ac"]["flat"]
+
+        unarmoredACCalculations = ['unarmoredMonk', 'unarmoredBarb', 'unarmoredBard', 'draconic', 'mage']
+
+        dexMod = int(math.floor((jsonDict['system']['abilities']['dex']['value'] - 10) / 2))
+        wisMod = int(math.floor((jsonDict['system']['abilities']['wis']['value'] - 10) / 2))
+        conMod = int(math.floor((jsonDict['system']['abilities']['con']['value'] - 10) / 2))
+        chaMod = int(math.floor((jsonDict['system']['abilities']['cha']['value'] - 10) / 2))
+
+        main_armor: int = int(10)
+        match acCalculation:
             case "unarmoredMonk":
-                return getUnarmoredMonkAC(jsonDict)
-            case "unarmoredBarbarian":
-                return getUnarmoredBarbarianAC(jsonDict)
-            case "mage" | "draconic":
-                return getMageArmorDraconicResilienceAC(jsonDict)
-            case _:
-                return getDefaultEquippedArmorAC(jsonDict)
-                
+                main_armor = 10 + wisMod + dexMod
+            case "unarmoredBarb":
+                main_armor = 10 + conMod + dexMod
+            case "unarmoredBard":
+                main_armor = 10 + chaMod + dexMod
+            case "draconic" | "mage":
+                main_armor = 13 + dexMod
+
+        for each in jsonDict['items']:
+            attunement_required = str(each['system']['attunement'])
+            attuned = bool(each['system']['attuned'])
+            equipped = bool(each['system']['equipped'])
+            dexcap = each['system']['armor']['dex']
+            base_armor = int(each['system']['armor']['value'])
+            bonus_armor = each['system']['armor']['magicalBonus']
+            effect_bonus = getEffectBonus(each, equipped)
+
+            if dexcap is None:
+                dexcap = 0
+
+            if bonus_armor is None:
+                bonus_armor = int(0)
+
+            armor_type = str(each['system']['type']['value'])
+            armor_types_list = ['light', 'medium', 'heavy']
+            ## unarmored_types_list = ['clothing','shield']
+
+            if (attunement_required == 'required') & (attuned == False):
+                continue
+
+            if not armor_types_list.__contains__(armor_type):  ## Non è un'armatura > scudo o oggetto magico
+                result += base_armor + bonus_armor + effect_bonus
+            elif not unarmoredACCalculations.__contains__(acCalculation) & armor_types_list.__contains__(armor_type):
+                main_armor = base_armor + min(dexMod, dexcap) + bonus_armor + effect_bonus
+
+        return result + main_armor
+
 
 
             
