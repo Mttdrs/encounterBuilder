@@ -1,20 +1,10 @@
 import sqlite3
 import json
-import math
 from sqlite3 import Connection
-
 import src.db.dbConst as dbConst
 from typing import Dict
 
-def getEffectBonus(each: Dict, equipped: bool): ## jsonDict['items']
-    if not equipped:
-        return 0
-    effect_bonus = int(0)
-    for effect in each['effects']:
-        for change in effect['changes']:
-            if change['key'] == str('system.attributes.ac.bonus'):
-                effect_bonus += int(change['value'])
-    return effect_bonus
+
 
 class Actor:
 
@@ -107,61 +97,7 @@ class Actor:
     def mapJsonDict(jsonDict: Dict) -> Dict:
         pass
 
-    def getArmorClass(jsonDict: Dict) -> int:
-        result = int(0)
 
-        acCalculation: str = str(jsonDict["system"]["attributes"]["ac"]["calc"])
-
-        flatAcCalculations = ['natural', 'flat']
-        if flatAcCalculations.__contains__(acCalculation):
-            return jsonDict["system"]["attributes"]["ac"]["flat"]
-
-        unarmoredACCalculations = ['unarmoredMonk', 'unarmoredBarb', 'unarmoredBard', 'draconic', 'mage']
-
-        dexMod = int(math.floor((jsonDict['system']['abilities']['dex']['value'] - 10) / 2))
-        wisMod = int(math.floor((jsonDict['system']['abilities']['wis']['value'] - 10) / 2))
-        conMod = int(math.floor((jsonDict['system']['abilities']['con']['value'] - 10) / 2))
-        chaMod = int(math.floor((jsonDict['system']['abilities']['cha']['value'] - 10) / 2))
-
-        main_armor: int = int(10)
-        match acCalculation:
-            case "unarmoredMonk":
-                main_armor = 10 + wisMod + dexMod
-            case "unarmoredBarb":
-                main_armor = 10 + conMod + dexMod
-            case "unarmoredBard":
-                main_armor = 10 + chaMod + dexMod
-            case "draconic" | "mage":
-                main_armor = 13 + dexMod
-
-        for each in jsonDict['items']:
-            attunement_required = str(each['system']['attunement'])
-            attuned = bool(each['system']['attuned'])
-            equipped = bool(each['system']['equipped'])
-            dexcap = each['system']['armor']['dex']
-            base_armor = int(each['system']['armor']['value'])
-            bonus_armor = each['system']['armor']['magicalBonus']
-            effect_bonus = getEffectBonus(each, equipped)
-
-            if dexcap is None:
-                dexcap = 0
-
-            if bonus_armor is None:
-                bonus_armor = int(0)
-
-            armor_type = str(each['system']['type']['value'])
-            armor_types_list = ['light', 'medium', 'heavy']
-            ## unarmored_types_list = ['clothing','shield']
-
-            if (attunement_required == 'required') & (attuned == False):
-                continue
-
-            if not armor_types_list.__contains__(armor_type):  ## Non è un'armatura > scudo o oggetto magico
-                result += base_armor + bonus_armor + effect_bonus
-            elif not unarmoredACCalculations.__contains__(acCalculation) & armor_types_list.__contains__(armor_type):
-                main_armor = base_armor + min(dexMod, dexcap) + bonus_armor + effect_bonus
-
-        return result + main_armor
 
 
 
