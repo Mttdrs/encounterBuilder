@@ -67,22 +67,22 @@ def getArmorClass(jsonDict: dict) -> int:
 
     return result + main_armor
 
-def getHitPoints(jsonDict: dict) -> int:
-    result = int(0)
-    conMod = int(floor((jsonDict['system']['abilities']['con']['value'] - 10) / 2))
+def getHitPoints(jsonDict: dict) -> float:
+    result = float(0)
+    conMod = float(floor((jsonDict['system']['abilities']['con']['value'] - 10) / 2))
 
-    levelBonus: int = int(0)
-    overallBonus: int = int(0)
+    levelBonus: float = float(0)
+    overallBonus: float = float(0)
     generalHPBonuses = jsonDict['system']['attributes']['hp']['bonuses']
     for key in generalHPBonuses.keys():
         if key == "level":
-            levelBonus = int(jsonDict['system']['attributes']['hp']['bonuses']['level'])
+            levelBonus = float(jsonDict['system']['attributes']['hp']['bonuses']['level'])
         if key == "overall":
-            overallBonus = int(jsonDict["system"]["attributes"]["hp"]["bonuses"]['overall'])
+            overallBonus = float(jsonDict["system"]["attributes"]["hp"]["bonuses"]['overall'])
 
     for item in jsonDict["items"]:
         if item["type"] == "class":
-            hdSize: int = int(item["system"]["hd"]["denomination"][1:])
+            hdSize: float = float(item["system"]["hd"]["denomination"][1:])
             for advancement in item["system"]["advancement"]:
                 if advancement["type"] == "HitPoints":
                     for value in advancement["value"].values():
@@ -93,7 +93,25 @@ def getHitPoints(jsonDict: dict) -> int:
                             case "avg":
                                 result += (hdSize/2) + 1
                             case _:
-                                result += int(value)
+                                result += float(value)
 
     result += overallBonus
     return result
+
+def getTotalLevel(jsonDict: dict) -> int:
+    level: int = int(0)
+    ## /system/details
+    if jsonDict['type'] == "npc":
+        level = int(jsonDict['system']['details']['cr'])
+
+    if jsonDict['type'] == "character":
+        for item in jsonDict["items"]:
+            if item["type"] == "class":
+                level += int(item['system']['levels'])
+
+    return level
+
+def getProfBonus(jsonDict: dict) -> int:
+    level: int = getTotalLevel(jsonDict)
+    return 2 + (level - 1) // 4
+

@@ -36,7 +36,19 @@ def testSingleFile():
         print(result)
 
 
-def testDirectory():
+def testACDirectory():
+    global file, json_data, result
+    directory = root / 'resources/playercharacters/ACTest'
+    for entry in scandir(directory):
+        if entry.is_file() & entry.name.endswith('.json'):
+            with open(entry) as file:
+                json_data = json.load(file)
+
+                ac = dataGatherer.getArmorClass(json_data)
+
+                print(f'{json_data["name"]}:  {ac}')
+
+def testHPDirectory():
     global file, json_data, result
     directory = root / 'resources/playercharacters/HPTest'
     for entry in scandir(directory):
@@ -44,10 +56,22 @@ def testDirectory():
             with open(entry) as file:
                 json_data = json.load(file)
 
-                result = dataGatherer.getHitPoints(json_data)
+                hp = dataGatherer.getHitPoints(json_data)
+                prof = dataGatherer.getProfBonus(json_data)
+                print(f'{json_data["name"]}:  {hp}, {prof}')
 
-                print(f'{json_data["name"]}:  {result}')
+def testProfDirectory():
+    global file, json_data, result
+    directory = root / 'resources/playercharacters/ProfTest'
+    for entry in scandir(directory):
+        if entry.is_file() & entry.name.endswith('.json'):
+            with open(entry) as file:
+                json_data = json.load(file)
 
+                prof = dataGatherer.getProfBonus(json_data)
+                print(f'{json_data["name"]}:  {prof}')
 
-testDirectory()
+##testACDirectory()
+testHPDirectory()
+testProfDirectory()
 
