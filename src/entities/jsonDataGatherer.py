@@ -1,9 +1,12 @@
 import math
+from logging import exception
 from math import floor
+from os import MFD_ALLOW_SEALING
+
 
 def getEffectBonusAC(each: dict, equipped: bool): ## jsonDict['items']
-    if not equipped:
-        return 0
+    if bool(each['type'] == 'equipment'):
+        if not equipped: return 0
     effect_bonus = int(0)
     for effect in each['effects']:
         for change in effect['changes']:
@@ -39,32 +42,43 @@ def getArmorClass(jsonDict: dict) -> int:
             main_armor = 13 + dexMod
 
     for each in jsonDict['items']:
-        attunement_required = str(each['system']['attunement'])
-        attuned = bool(each['system']['attuned'])
-        equipped = bool(each['system']['equipped'])
-        dexcap = each['system']['armor']['dex']
-        base_armor = int(each['system']['armor']['value'])
-        bonus_armor = each['system']['armor']['magicalBonus']
-        effect_bonus = getEffectBonusAC(each, equipped)
+        try:
+            attunement_required: str = ""
+            attuned: bool = False
+            equipped: bool = False
+            dexcap: int = 10
+            base_armor: int = 0
+            bonus_armor: int = 0
 
-        if dexcap is None:
-            dexcap = 0
+            if each['type'] == 'equipment':
+                attunement_required = str(each['system']['attunement'])
+                attuned = each['system']['attuned']
+                equipped = each['system']['equipped']
+                dexcap = each['system']['armor']['dex']
+                base_armor = each['system']['armor']['value']
+                bonus_armor = each['system']['armor']['magicalBonus']
+                if not equipped: continue
 
-        if bonus_armor is None:
-            bonus_armor = int(0)
+            effect_bonus = getEffectBonusAC(each, equipped)
 
-        armor_type = str(each['system']['type']['value'])
-        armor_types_list = ['light', 'medium', 'heavy']
-        ## unarmored_types_list = ['clothing','shield']
+            if dexcap is None:
+                dexcap = 10
 
-        if (attunement_required == 'required') & (attuned == False):
+            if bonus_armor is None:
+                bonus_armor = int(0)
+
+            armor_type = str(each['system']['type']['value'])
+            armor_types_list = ['light', 'medium', 'heavy']
+
+            if (attunement_required == 'required') & (attuned == False):
+                continue
+
+            if not armor_types_list.__contains__(armor_type):  ## Non è un'armatura > scudo o oggetto magico
+                result += base_armor + bonus_armor + effect_bonus
+            elif not unarmoredACCalculations.__contains__(acCalculation) & armor_types_list.__contains__(armor_type):
+                main_armor = base_armor + min(dexMod, dexcap) + bonus_armor + effect_bonus
+        except:
             continue
-
-        if not armor_types_list.__contains__(armor_type):  ## Non è un'armatura > scudo o oggetto magico
-            result += base_armor + bonus_armor + effect_bonus
-        elif not unarmoredACCalculations.__contains__(acCalculation) & armor_types_list.__contains__(armor_type):
-            main_armor = base_armor + min(dexMod, dexcap) + bonus_armor + effect_bonus
-
     return result + main_armor
 
 def getHitPoints(jsonDict: dict) -> float:
@@ -75,25 +89,31 @@ def getHitPoints(jsonDict: dict) -> float:
     overallBonus: float = float(0)
     generalHPBonuses = jsonDict['system']['attributes']['hp']['bonuses']
     for key in generalHPBonuses.keys():
-        if key == "level":
-            levelBonus = float(jsonDict['system']['attributes']['hp']['bonuses']['level'])
-        if key == "overall":
-            overallBonus = float(jsonDict["system"]["attributes"]["hp"]["bonuses"]['overall'])
+        try:
+            if key == "level":
+                levelBonus = float(jsonDict['system']['attributes']['hp']['bonuses']['level'])
+            if key == "overall":
+                overallBonus = float(jsonDict["system"]["attributes"]["hp"]["bonuses"]['overall'])
+        except:
+            continue
 
     for item in jsonDict["items"]:
-        if item["type"] == "class":
-            hdSize: float = float(item["system"]["hd"]["denomination"][1:])
-            for advancement in item["system"]["advancement"]:
-                if advancement["type"] == "HitPoints":
-                    for value in advancement["value"].values():
-                        result += conMod + levelBonus
-                        match value:
-                            case "max":
-                                result += hdSize
-                            case "avg":
-                                result += (hdSize/2) + 1
-                            case _:
-                                result += float(value)
+        try:
+            if item["type"] == "class":
+                hdSize: float = float(item["system"]["hd"]["denomination"][1:])
+                for advancement in item["system"]["advancement"]:
+                    if advancement["type"] == "HitPoints":
+                        for value in advancement["value"].values():
+                            result += conMod + levelBonus
+                            match value:
+                                case "max":
+                                    result += hdSize
+                                case "avg":
+                                    result += (hdSize/2) + 1
+                                case _:
+                                    result += float(value)
+        except:
+            continue
 
     result += overallBonus
     return result
@@ -123,6 +143,7 @@ def getSavingThrows(jsonDict: dict) -> dict:
     abilities: dict = dict(jsonDict['system']['abilities'])
 
     for item in jsonDict['items']:
+        if item['type'] == 'spell': continue ## Ignoriamo le spells
         for effect in item['effects']:
             for change in effect['changes']:
                 if change['key'] == "system.bonuses.abilities.save":

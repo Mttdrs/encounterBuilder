@@ -81,7 +81,21 @@ def testSTDirectory():
                 saving_throws = dataGatherer.getSavingThrows(json_data)
                 print(f'{json_data["name"]}:  {saving_throws}')
 
+def testFullCharacterDirectory():
+    global file, json_data, result
+    directory = root / 'resources/playercharacters/FullCharacterrsTest'
+    for entry in scandir(directory):
+        if entry.is_file() & entry.name.endswith('.json'):
+            with open(entry) as file:
+                json_data = json.load(file)
+                ac = dataGatherer.getArmorClass(json_data)
+                hp = dataGatherer.getHitPoints(json_data)
+                saving_throws = dataGatherer.getSavingThrows(json_data)
+
+                print(f'{json_data["name"]}: AC = {ac}, HP = {hp}, Saving Throws = {saving_throws}')
+
 ##testACDirectory()
 ##testHPDirectory()
 ##testProfDirectory()
-testSTDirectory()
+##testSTDirectory()
+testFullCharacterDirectory()
