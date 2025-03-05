@@ -115,3 +115,27 @@ def getProfBonus(jsonDict: dict) -> int:
     level: int = getTotalLevel(jsonDict)
     return 2 + (level - 1) // 4
 
+def getSavingThrows(jsonDict: dict) -> dict:
+    result: dict = dict({"str": 0, "dex": 0, "con": 0, "int": 0, "wis": 0, "cha": 0})
+
+    proficiencyBonus = getProfBonus(jsonDict)
+    globalSaveBonus: int = int(0)
+    abilities: dict = dict(jsonDict['system']['abilities'])
+
+    for item in jsonDict['items']:
+        for effect in item['effects']:
+            for change in effect['changes']:
+                if change['key'] == "system.bonuses.abilities.save":
+                    globalSaveBonus += int(change['value'])
+                else:
+                    for key in result.keys():
+                        if change['key'] == "system.abilities."+ key +".bonuses.save":
+                            result[key] += int(change['value'])
+
+    for key in abilities.keys():
+        abilityMod: int = int(floor((abilities[key]['value'] - 10) / 2))
+        result[key] += abilityMod + globalSaveBonus
+        if abilities[key]['proficient']:
+            result[key] += proficiencyBonus
+
+    return result

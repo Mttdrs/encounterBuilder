@@ -1,0 +1,3551 @@
+{
+  "name": "STTest1_Paladin6001",
+  "type": "character",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "abilities": {
+      "str": {
+        "value": 18,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 12,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 16,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 12,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 14,
+        "proficient": 1,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 16,
+        "proficient": 1,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "skills": {
+      "acr": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "arc": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 1,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "dec": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 1,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0,
+        "override": null
+      },
+      "spell2": {
+        "value": 0,
+        "override": null
+      },
+      "spell3": {
+        "value": 0,
+        "override": null
+      },
+      "spell4": {
+        "value": 0,
+        "override": null
+      },
+      "spell5": {
+        "value": 0,
+        "override": null
+      },
+      "spell6": {
+        "value": 0,
+        "override": null
+      },
+      "spell7": {
+        "value": 0,
+        "override": null
+      },
+      "spell8": {
+        "value": 0,
+        "override": null
+      },
+      "spell9": {
+        "value": 0,
+        "override": null
+      },
+      "pact": {
+        "value": 0,
+        "override": null
+      }
+    },
+    "attributes": {
+      "ac": {
+        "calc": "default",
+        "flat": null
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "movement": {
+        "burrow": null,
+        "climb": null,
+        "fly": null,
+        "swim": null,
+        "walk": null,
+        "units": null,
+        "hover": false
+      },
+      "attunement": {
+        "max": 3
+      },
+      "senses": {
+        "darkvision": null,
+        "blindsight": null,
+        "tremorsense": null,
+        "truesight": null,
+        "units": null,
+        "special": ""
+      },
+      "spellcasting": "cha",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {
+        "value": null
+      },
+      "hp": {
+        "value": 34,
+        "max": null,
+        "temp": null,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "inspiration": false
+    },
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "details": {
+      "biography": {
+        "value": "",
+        "public": ""
+      },
+      "alignment": "",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "race": null,
+      "background": null,
+      "originalClass": "rTdw0fzd5AIwQ9fC",
+      "xp": {
+        "value": 0
+      },
+      "appearance": "",
+      "trait": "",
+      "eyes": "",
+      "height": "",
+      "faith": "",
+      "hair": "",
+      "weight": "",
+      "gender": "",
+      "skin": "",
+      "age": ""
+    },
+    "traits": {
+      "size": "med",
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "ci": {
+        "value": [
+          "diseased"
+        ],
+        "custom": ""
+      },
+      "languages": {
+        "value": [],
+        "custom": "",
+        "communication": {}
+      },
+      "weaponProf": {
+        "value": [
+          "sim",
+          "mar"
+        ],
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      },
+      "armorProf": {
+        "value": [
+          "lgt",
+          "med",
+          "hvy",
+          "shl"
+        ],
+        "custom": ""
+      }
+    },
+    "resources": {
+      "primary": {
+        "value": 0,
+        "max": 0,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      },
+      "secondary": {
+        "value": 0,
+        "max": 0,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      },
+      "tertiary": {
+        "value": 0,
+        "max": 0,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      }
+    },
+    "favorites": []
+  },
+  "prototypeToken": {
+    "name": "STTest1",
+    "displayName": 0,
+    "actorLink": true,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "offsetX": 0,
+      "offsetY": 0,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "rotation": 0,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "hexagonalShape": 0,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": 1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": true,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "flags": {},
+    "randomImg": false
+  },
+  "items": [
+    {
+      "_id": "ZFolmVWMRwZBocLT",
+      "name": "Shield +1",
+      "type": "equipment",
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/shield/round-wooden-boss-gold-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>While holding this shield, you have a bonus to AC of +1. This bonus is in addition to the shield's normal bonus to AC.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 6,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1500,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "uncommon",
+        "identified": true,
+        "cover": null,
+        "crewed": false,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "armor": {
+          "value": 2,
+          "dex": null,
+          "magicalBonus": 1
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "speed": {
+          "value": null,
+          "conditions": ""
+        },
+        "strength": null,
+        "proficient": null,
+        "type": {
+          "value": "shield",
+          "baseItem": "shield"
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [
+          "mgc"
+        ],
+        "activities": {},
+        "identifier": "shield-1",
+        "attuned": false,
+        "equipped": true
+      },
+      "effects": [],
+      "folder": "JqTP017wj3uxDJ8g",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.items.Item.NgwrqNa6kkgoPW2Q",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160205305,
+        "modifiedTime": 1741160271754,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "3WUQ9JTHpwiUZMfd",
+      "name": "Plate Armor +1",
+      "type": "equipment",
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/chest/breastplate-collared-steel.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>This armor has been embellished with powerful runes, crafted in sorcerous fires, blessed by a powerful being, or some other event has seen it bequeathed with enhanced protection for the wearer.</em></p>\n<p>You have a bonus to AC while wearing this armor.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 65,
+          "units": "lb"
+        },
+        "price": {
+          "value": 3000,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "rare",
+        "identified": true,
+        "cover": null,
+        "crewed": false,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "armor": {
+          "value": 18,
+          "dex": 0,
+          "magicalBonus": 1
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "speed": {
+          "value": null,
+          "conditions": ""
+        },
+        "strength": 15,
+        "proficient": null,
+        "type": {
+          "value": "heavy",
+          "baseItem": "plate"
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [
+          "mgc",
+          "stealthDisadvantage"
+        ],
+        "activities": {},
+        "identifier": "plate-armor-1",
+        "attuned": false,
+        "equipped": true
+      },
+      "effects": [],
+      "folder": "JqTP017wj3uxDJ8g",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.items.Item.fStHPOhuJvwEjzQh",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160218329,
+        "modifiedTime": 1741160271754,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "tGzEgATPXvHElaY2",
+      "name": "Cloak of Protection",
+      "type": "equipment",
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/back/cloak-heavy-fur-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Wondrous item, (requires attunement)</em></p>\n<p>You gain a +1 bonus to AC and saving throws while you wear this cloak.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 3,
+          "units": "lb"
+        },
+        "price": {
+          "value": 3500,
+          "denomination": "gp"
+        },
+        "attunement": "required",
+        "rarity": "uncommon",
+        "identified": true,
+        "cover": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "armor": {
+          "value": 0,
+          "dex": 0,
+          "magicalBonus": null
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "speed": {
+          "value": null,
+          "conditions": ""
+        },
+        "strength": null,
+        "proficient": null,
+        "type": {
+          "value": "clothing",
+          "baseItem": ""
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "crewed": false,
+        "properties": [
+          "mgc"
+        ],
+        "activities": {},
+        "identifier": "cloak-of-protection",
+        "attuned": true,
+        "equipped": true
+      },
+      "effects": [
+        {
+          "_id": "jxfin1rh71p1xjjv",
+          "changes": [
+            {
+              "key": "system.attributes.ac.bonus",
+              "mode": 2,
+              "value": "+1",
+              "priority": null
+            },
+            {
+              "key": "system.bonuses.abilities.save",
+              "mode": 2,
+              "value": "+1",
+              "priority": null
+            }
+          ],
+          "disabled": false,
+          "duration": {
+            "startTime": 0,
+            "seconds": null,
+            "combat": null,
+            "rounds": null,
+            "turns": null,
+            "startRound": null,
+            "startTurn": null
+          },
+          "origin": "Compendium.dnd5e.items.lvaMqEhfidfHDGf5",
+          "transfer": true,
+          "flags": {},
+          "tint": "#ffffff",
+          "name": "+1 to AC & Saves",
+          "description": "",
+          "statuses": [],
+          "_stats": {
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "coreVersion": "12.331",
+            "systemId": "dnd5e",
+            "systemVersion": "4.3.5",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null
+          },
+          "img": "icons/equipment/back/cloak-heavy-fur-blue.webp",
+          "type": "base",
+          "system": {},
+          "sort": 0
+        }
+      ],
+      "folder": "aJgMxnZED9XdoN2W",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.items.Item.lvaMqEhfidfHDGf5",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160224816,
+        "modifiedTime": 1741160271754,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "rTdw0fzd5AIwQ9fC",
+      "name": "Paladin",
+      "type": "class",
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/commodities/treasure/token-gold-gem-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>As a paladin, you gain the following class features.</p><h3>Hit Points</h3><p><strong>Hit Dice:</strong> 1d10 per paladin level<br /><strong>Hit Points at 1st Level:</strong> 10 + your Constitution modifier<br /><strong>Hit Points at Higher Levels:</strong> 1d10 (or 6) + your Constitution modifier per paladin level after 1st</p><h3>Proficiencies</h3><p><strong>Armor:</strong> All armor, shields<br /><strong>Weapons:</strong> Simple weapons, martial weapons<br /><strong>Tools:</strong> None<br /><strong>Saving Throws:</strong> Wisdom, Charisma<br /><strong>Skills:</strong> Choose two from Athletics, Insight, Intimidation, Medicine, Persuasion, and Religion</p><h1>Paladin Advancement</h1><table><thead><tr><td>Level</td><td>Proficiency Bonus</td><td>Features</td></tr></thead><tbody><tr><td>1st</td><td>+2</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.E8ozg8avUVOX9N7u]{Divine Sense}, @UUID[Compendium.dnd5e.classfeatures.Item.OdrvL3afwLOPeuYZ]{Lay on Hands}</td></tr><tr><td>2nd</td><td>+2</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.Ho7dVxBlOYFlfBHk]{Fighting Style}, @UUID[Compendium.dnd5e.classfeatures.Item.ihoQHsmVZlyDbPhX]{Spellcasting}, @UUID[Compendium.dnd5e.classfeatures.Item.ySMPQ6zNSlvkrl2f]{Divine Smite}</td></tr><tr><td>3rd</td><td>+2</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.dY9yrqkyEDuF0CG2]{Divine Health}, @UUID[Compendium.dnd5e.classfeatures.Item.olAqNsUTIef9x8xC]{Sacred Oath}, @UUID[Compendium.dnd5e.classfeatures.Item.8M7uOPhbTxoxxJSo]{Channel Divinity}</td></tr><tr><td>4th</td><td>+2</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>5th</td><td>+3</td><td>2nd Level Spell Slot, @UUID[Compendium.dnd5e.classfeatures.Item.XogoBnFWmCAHXppo]{Extra Attack}</td></tr><tr><td>6th</td><td>+3</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.carGDhkIdoduTC0I]{Aura of Protection}</td></tr><tr><td>7th</td><td>+3</td><td>Sacred Oath feature</td></tr><tr><td>8th</td><td>+3</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>9th</td><td>+4</td><td>3rd Level Spell Slot</td></tr><tr><td>10th</td><td>+4</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.nahSkBO6LH4HkpaT]{Aura of Courage}</td></tr><tr><td>11th</td><td>+4</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.FAk41RPCTcvCk6KI]{Improved Divine Smite}</td></tr><tr><td>12th</td><td>+4</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>13th</td><td>+5</td><td>4th Level Spell Slot</td></tr><tr><td>14th</td><td>+5</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.U7BIPVPsptBmwsnV]{Cleansing Touch}</td></tr><tr><td>15th</td><td>+5</td><td>Sacred Oath feature</td></tr><tr><td>16th</td><td>+5</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>17th</td><td>+6</td><td>5th Level Spell Slot</td></tr><tr><td>18th</td><td>+6</td><td>Aura improvements</td></tr><tr><td>19th</td><td>+6</td><td>@UUID[Compendium.dnd5e.classfeatures.Item.s0Cc2zcX0JzIgam5]{Ability Score Improvement}</td></tr><tr><td>20th</td><td>+6</td><td>Sacred Oath feature</td></tr></tbody></table><h1>Sacred Oaths</h1><p>Becoming a paladin involves taking vows that commit the paladin to the cause of righteousness, an active path of fighting wickedness. The final oath, taken when he or she reaches 3rd level, is the culmination of all the paladin's training. Some characters with this class don't consider themselves true paladins until they have reached 3rd level and made this oath. For others, the actual swearing of the oath is a formality, an official stamp on what has always been true in the paladin's heart.</p><p>@UUID[Compendium.dnd5e.subclasses.Item.sZ86mbX8D5PfYuhl]{Oath of Devotion}</p><div class=\"sidebar-block\"><h4>Breaking Your Oath</h4><p>A paladin tries to hold to the highest standards of conduct, but even the most virtuous paladin is fallible. Sometimes the right path proves too demanding, sometimes a situation calls for the lesser of two evils, and sometimes the heat of emotion causes a paladin to transgress his or her oath.</p><p>A paladin who has broken a vow typically seeks absolution from a cleric who shares his or her faith or from another paladin of the same order. The paladin might spend an allnight vigil in prayer as a sign of penitence, or undertake a fast or similar act of self-denial. After a rite of confession and forgiveness, the paladin starts fresh.</p><p>If a paladin willfully violates his or her oath and shows no sign of repentance, the consequences can be more serious. At the GM's discretion, an impenitent paladin might be forced to abandon this class and adopt another.</p></div>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "paladin",
+        "levels": 6,
+        "advancement": [
+          {
+            "type": "HitPoints",
+            "configuration": {},
+            "value": {
+              "1": "max",
+              "2": "avg",
+              "3": 4,
+              "4": 4,
+              "5": 4,
+              "6": "avg"
+            },
+            "title": "Hit Points",
+            "icon": "systems/dnd5e/icons/svg/hit-points.svg",
+            "_id": "N4T7S8KXXZKskROj"
+          },
+          {
+            "_id": "qfbfR422hrwjwWyd",
+            "type": "Trait",
+            "configuration": {
+              "mode": "default",
+              "allowReplacements": false,
+              "grants": [
+                "armor:lgt",
+                "armor:med",
+                "armor:hvy",
+                "armor:shl"
+              ],
+              "choices": []
+            },
+            "level": 1,
+            "title": "",
+            "classRestriction": "primary",
+            "value": {
+              "chosen": [
+                "armor:lgt",
+                "armor:med",
+                "armor:hvy",
+                "armor:shl"
+              ]
+            }
+          },
+          {
+            "_id": "2pEp37GeIGCBdiqU",
+            "type": "Trait",
+            "configuration": {
+              "mode": "default",
+              "allowReplacements": false,
+              "grants": [
+                "weapon:sim",
+                "weapon:mar"
+              ],
+              "choices": []
+            },
+            "level": 1,
+            "title": "",
+            "value": {
+              "chosen": [
+                "weapon:sim",
+                "weapon:mar"
+              ]
+            }
+          },
+          {
+            "_id": "aIeuTIJdiKMaChi8",
+            "type": "Trait",
+            "configuration": {
+              "mode": "default",
+              "allowReplacements": false,
+              "grants": [
+                "saves:wis",
+                "saves:cha"
+              ],
+              "choices": []
+            },
+            "level": 1,
+            "title": "",
+            "classRestriction": "primary",
+            "value": {
+              "chosen": [
+                "saves:wis",
+                "saves:cha"
+              ]
+            }
+          },
+          {
+            "_id": "ZZIWxV7EaHl6GVcu",
+            "type": "Trait",
+            "configuration": {
+              "mode": "default",
+              "allowReplacements": false,
+              "grants": [],
+              "choices": [
+                {
+                  "count": 2,
+                  "pool": [
+                    "skills:ath",
+                    "skills:ins",
+                    "skills:itm",
+                    "skills:med",
+                    "skills:per",
+                    "skills:rel"
+                  ]
+                }
+              ]
+            },
+            "level": 1,
+            "title": "",
+            "classRestriction": "primary",
+            "value": {
+              "chosen": [
+                "skills:ath",
+                "skills:ins"
+              ]
+            }
+          },
+          {
+            "type": "Trait",
+            "configuration": {
+              "mode": "default",
+              "allowReplacements": false,
+              "grants": [
+                "armor:lgt",
+                "armor:med",
+                "armor:shl"
+              ],
+              "choices": []
+            },
+            "level": 1,
+            "title": "",
+            "_id": "qd6RxOGs50LR5Lea",
+            "classRestriction": "secondary",
+            "value": {
+              "chosen": []
+            }
+          },
+          {
+            "_id": "LYiiMtwvVVXZs8yE",
+            "type": "Trait",
+            "configuration": {
+              "mode": "default",
+              "allowReplacements": false,
+              "grants": [
+                "ci:diseased"
+              ],
+              "choices": []
+            },
+            "level": 3,
+            "title": "Divine Health",
+            "value": {
+              "chosen": [
+                "ci:diseased"
+              ]
+            },
+            "hint": "The divine magic flowing through you makes you immune to disease."
+          },
+          {
+            "type": "ItemGrant",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.E8ozg8avUVOX9N7u",
+                  "optional": false
+                },
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.OdrvL3afwLOPeuYZ",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              }
+            },
+            "value": {
+              "added": {
+                "AIBE0tYUbeS8BVgS": "Compendium.dnd5e.classfeatures.Item.E8ozg8avUVOX9N7u",
+                "gIuH1aKhtfHw2Hna": "Compendium.dnd5e.classfeatures.Item.OdrvL3afwLOPeuYZ"
+              }
+            },
+            "level": 1,
+            "title": "Features",
+            "_id": "HL6Kwpmrsz5yqmBK"
+          },
+          {
+            "type": "ItemGrant",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.Ho7dVxBlOYFlfBHk",
+                  "optional": false
+                },
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.ihoQHsmVZlyDbPhX",
+                  "optional": false
+                },
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.ySMPQ6zNSlvkrl2f",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              }
+            },
+            "value": {
+              "added": {
+                "nWCBWQBjKvHTvA6O": "Compendium.dnd5e.classfeatures.Item.Ho7dVxBlOYFlfBHk",
+                "q948hOXiMi5v8gEH": "Compendium.dnd5e.classfeatures.Item.ihoQHsmVZlyDbPhX",
+                "xJtdXcvvXYRdsYPv": "Compendium.dnd5e.classfeatures.Item.ySMPQ6zNSlvkrl2f"
+              }
+            },
+            "level": 2,
+            "title": "Features",
+            "_id": "RwqEtAP5aJqHIW5J"
+          },
+          {
+            "type": "ItemGrant",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.dY9yrqkyEDuF0CG2",
+                  "optional": false
+                },
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.olAqNsUTIef9x8xC",
+                  "optional": false
+                },
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.8M7uOPhbTxoxxJSo",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              }
+            },
+            "value": {
+              "added": {
+                "b4TSE42reJGeXADY": "Compendium.dnd5e.classfeatures.Item.dY9yrqkyEDuF0CG2",
+                "RlLvUNS0oCrFKn1N": "Compendium.dnd5e.classfeatures.Item.olAqNsUTIef9x8xC",
+                "TPu5OaTSTWIpRxAs": "Compendium.dnd5e.classfeatures.Item.8M7uOPhbTxoxxJSo"
+              }
+            },
+            "level": 3,
+            "title": "Features",
+            "_id": "ki8eEksoSjfOHDcF"
+          },
+          {
+            "type": "ItemGrant",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.XogoBnFWmCAHXppo",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              }
+            },
+            "value": {
+              "added": {
+                "hx3KAQP32N7dJBES": "Compendium.dnd5e.classfeatures.Item.XogoBnFWmCAHXppo"
+              }
+            },
+            "level": 5,
+            "title": "Features",
+            "_id": "WaoJQunO9O2pdC1g"
+          },
+          {
+            "type": "ItemGrant",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.carGDhkIdoduTC0I",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              }
+            },
+            "value": {
+              "added": {
+                "AP6pZjDPtxQIhwVZ": "Compendium.dnd5e.classfeatures.Item.carGDhkIdoduTC0I"
+              }
+            },
+            "level": 6,
+            "title": "Features",
+            "_id": "Gs5c5ciErsG3NDyW"
+          },
+          {
+            "type": "ItemGrant",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.nahSkBO6LH4HkpaT",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              }
+            },
+            "value": {},
+            "level": 10,
+            "title": "Features",
+            "_id": "teLWeatpgzXs5uCc"
+          },
+          {
+            "type": "ItemGrant",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.FAk41RPCTcvCk6KI",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              }
+            },
+            "value": {},
+            "level": 11,
+            "title": "Features",
+            "_id": "BWhYgjLNVypoHyqZ"
+          },
+          {
+            "type": "ItemGrant",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.U7BIPVPsptBmwsnV",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              }
+            },
+            "value": {},
+            "level": 14,
+            "title": "Features",
+            "_id": "63s9ja0RR4UkfHCN"
+          },
+          {
+            "type": "ItemChoice",
+            "configuration": {
+              "choices": {
+                "2": {
+                  "count": 1,
+                  "replacement": false
+                }
+              },
+              "allowDrops": true,
+              "type": "feat",
+              "pool": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.zSlV0O2rQMdoq6pB"
+                },
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.hCop9uJrWhF1QPb4"
+                },
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.3Nc6u9pyStByuJsm"
+                },
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.06NVMYf58Z76O85O"
+                }
+              ],
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              },
+              "restriction": {
+                "type": "class",
+                "subtype": "fightingStyle",
+                "level": ""
+              }
+            },
+            "value": {
+              "added": {
+                "2": {
+                  "lc8SQP3JmKIvIZt1": "Compendium.dnd5e.classfeatures.Item.zSlV0O2rQMdoq6pB"
+                }
+              },
+              "replaced": {}
+            },
+            "title": "Fighting Style",
+            "_id": "GPzUDRFo5bfrhU1K",
+            "hint": "Choose one of the following options. You can’t take a Fighting Style option more than once, even if you later get to choose again."
+          },
+          {
+            "type": "AbilityScoreImprovement",
+            "configuration": {
+              "points": 2,
+              "fixed": {
+                "str": 0,
+                "dex": 0,
+                "con": 0,
+                "int": 0,
+                "wis": 0,
+                "cha": 0
+              },
+              "cap": 2,
+              "locked": []
+            },
+            "value": {
+              "type": "asi",
+              "assignments": {
+                "str": 2
+              }
+            },
+            "level": 4,
+            "title": "Ability Score Improvement",
+            "_id": "ASKyHbSBAKRIU6i3"
+          },
+          {
+            "type": "AbilityScoreImprovement",
+            "configuration": {
+              "points": 2,
+              "fixed": {
+                "str": 0,
+                "dex": 0,
+                "con": 0,
+                "int": 0,
+                "wis": 0,
+                "cha": 0
+              },
+              "cap": 2,
+              "locked": []
+            },
+            "value": {
+              "type": "asi"
+            },
+            "level": 8,
+            "title": "Ability Score Improvement",
+            "_id": "iBK2dJf2hwv9vOBI"
+          },
+          {
+            "type": "AbilityScoreImprovement",
+            "configuration": {
+              "points": 2,
+              "fixed": {
+                "str": 0,
+                "dex": 0,
+                "con": 0,
+                "int": 0,
+                "wis": 0,
+                "cha": 0
+              },
+              "cap": 2,
+              "locked": []
+            },
+            "value": {
+              "type": "asi"
+            },
+            "level": 12,
+            "title": "Ability Score Improvement",
+            "_id": "BI8DBqJZY8O9orOX"
+          },
+          {
+            "type": "AbilityScoreImprovement",
+            "configuration": {
+              "points": 2,
+              "fixed": {
+                "str": 0,
+                "dex": 0,
+                "con": 0,
+                "int": 0,
+                "wis": 0,
+                "cha": 0
+              },
+              "cap": 2,
+              "locked": []
+            },
+            "value": {
+              "type": "asi"
+            },
+            "level": 16,
+            "title": "Ability Score Improvement",
+            "_id": "hKEbRRkEEfvA3ydq"
+          },
+          {
+            "_id": "puDaUsYrlks0z5gm",
+            "type": "AbilityScoreImprovement",
+            "configuration": {
+              "points": 2,
+              "fixed": {
+                "str": 0,
+                "dex": 0,
+                "con": 0,
+                "int": 0,
+                "wis": 0,
+                "cha": 0
+              },
+              "cap": 2,
+              "locked": []
+            },
+            "value": {
+              "type": "asi"
+            },
+            "level": 19,
+            "title": ""
+          },
+          {
+            "_id": "J6UYtKD0wkJQ9CHT",
+            "type": "ScaleValue",
+            "configuration": {
+              "identifier": "aura-radius",
+              "type": "distance",
+              "distance": {
+                "units": "ft"
+              },
+              "scale": {
+                "6": {
+                  "value": 10
+                },
+                "18": {
+                  "value": 30
+                }
+              }
+            },
+            "value": {},
+            "title": "Aura Radius"
+          },
+          {
+            "_id": "n22j60yn24fqr3sy",
+            "type": "Subclass",
+            "configuration": {},
+            "value": {
+              "document": "icw91HorxyR7160s",
+              "uuid": "Compendium.dnd5e.subclasses.Item.sZ86mbX8D5PfYuhl"
+            },
+            "level": 3,
+            "title": "Sacred Oath"
+          }
+        ],
+        "spellcasting": {
+          "progression": "half",
+          "ability": "cha",
+          "preparation": {
+            "formula": "@abilities.cha.mod + floor(@classes.paladin.levels / 2)"
+          }
+        },
+        "startingEquipment": [
+          {
+            "type": "OR",
+            "_id": "mNW3DhRGE7hORMia",
+            "group": "",
+            "sort": 100000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "AND",
+            "_id": "qtoUTXznLIdqzLDC",
+            "group": "mNW3DhRGE7hORMia",
+            "sort": 600000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "weapon",
+            "count": null,
+            "key": "mar",
+            "_id": "sMUMbtr7U7orGlw1",
+            "group": "qtoUTXznLIdqzLDC",
+            "sort": 650000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "armor",
+            "count": null,
+            "key": "shield",
+            "_id": "RCUC6iX1bx8RbdYi",
+            "group": "qtoUTXznLIdqzLDC",
+            "sort": 700000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "weapon",
+            "count": 2,
+            "key": "mar",
+            "_id": "qpxs0rk4lOYOveVf",
+            "group": "mNW3DhRGE7hORMia",
+            "sort": 800000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "OR",
+            "_id": "KU6igyNLG0PRlFkl",
+            "group": "",
+            "sort": 200000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "linked",
+            "count": 5,
+            "key": "Compendium.dnd5e.items.Item.DWLMnODrnHn8IbAG",
+            "_id": "PJ66eV1adKQqkHvZ",
+            "group": "KU6igyNLG0PRlFkl",
+            "sort": 900000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "weapon",
+            "count": null,
+            "key": "simpleM",
+            "_id": "qbjwGvxDVuBdPxjg",
+            "group": "KU6igyNLG0PRlFkl",
+            "sort": 1000000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "OR",
+            "_id": "WpRsbaUbRDpHYmTY",
+            "group": "",
+            "sort": 300000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "linked",
+            "count": null,
+            "key": "Compendium.dnd5e.items.Item.6BybWxK5GcEzqcOV",
+            "_id": "jeQyetu8yEeSivyL",
+            "group": "WpRsbaUbRDpHYmTY",
+            "sort": 1100000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "linked",
+            "count": null,
+            "key": "Compendium.dnd5e.items.Item.8KWz5DJbWUpNWniP",
+            "_id": "GWGVhytRaKQXNUna",
+            "group": "WpRsbaUbRDpHYmTY",
+            "sort": 1200000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "AND",
+            "_id": "lYcSORTIlg5LwdX7",
+            "group": "",
+            "sort": 400000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "linked",
+            "count": null,
+            "key": "Compendium.dnd5e.items.Item.rLMflzmxpe8JGTOA",
+            "_id": "REA8qwWfZCpl5ZqP",
+            "group": "lYcSORTIlg5LwdX7",
+            "sort": 1300000,
+            "requiresProficiency": false
+          },
+          {
+            "type": "focus",
+            "count": null,
+            "key": "holy",
+            "_id": "9ELn1dIN7WY1YJb8",
+            "group": "lYcSORTIlg5LwdX7",
+            "sort": 1400000,
+            "requiresProficiency": false
+          }
+        ],
+        "wealth": "5d4 * 10",
+        "primaryAbility": {
+          "value": [],
+          "all": true
+        },
+        "hd": {
+          "denomination": "d10",
+          "spent": 0,
+          "additional": ""
+        }
+      },
+      "effects": [],
+      "folder": "HwOKB9LPw4dA10L8",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classes.Item.gZiUvbXWLs0pOp0c",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160271722,
+        "modifiedTime": 1741160334206,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "AIBE0tYUbeS8BVgS",
+      "name": "Divine Sense",
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>The presence of strong evil registers on your senses like a noxious odor, and powerful good rings like heavenly music in your ears. As an action, you can open your awareness to detect such forces. Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity (the vampire Count Strahd von Zarovich, for instance). Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the @UUID[Compendium.dnd5e.spells.Item.SLxA9QhrggTz0taU]{Hallow} spell.</p><p>You can use this feature a number of times equal to 1 + your Charisma modifier. When you finish a long rest, you regain all expended uses.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "1 + @abilities.cha.mod",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll"
+            }
+          ],
+          "spent": 0
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "requirements": "Paladin 1",
+        "properties": [],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "target": "",
+                  "value": "1",
+                  "scaling": {
+                    "mode": "",
+                    "formula": ""
+                  }
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "1",
+              "units": "round",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "60",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": ""
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0
+          }
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "divine-sense",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.E8ozg8avUVOX9N7u",
+          "advancementOrigin": "rTdw0fzd5AIwQ9fC.HL6Kwpmrsz5yqmBK",
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/creatures/eyes/human-single-blue.webp",
+      "effects": [],
+      "folder": "01K0hSSl7NQjYLb8",
+      "sort": 0,
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.E8ozg8avUVOX9N7u",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160271722,
+        "modifiedTime": 1741160334206,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "gIuH1aKhtfHw2Hna",
+      "name": "Lay on Hands",
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Your blessed touch can heal wounds. You have a pool of healing power that replenishes when you take a long rest. With that pool, you can restore a total number of hit points equal to your paladin level × 5.</p><p>As an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool.</p><p>Alternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one.</p><p>This feature has no effect on undead and constructs.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "5 * @classes.paladin.levels",
+          "recovery": [
+            {
+              "period": "lr",
+              "type": "recoverAll"
+            }
+          ],
+          "spent": 0
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "requirements": "Paladin 1",
+        "properties": [],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "heal",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "Target cannot be Undead or a Construct.",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "target": "",
+                  "value": "1",
+                  "scaling": {
+                    "mode": "amount",
+                    "formula": ""
+                  }
+                }
+              ],
+              "scaling": {
+                "allowed": true,
+                "max": "@item.uses.value"
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "touch",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": ""
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": false,
+              "override": false
+            },
+            "healing": {
+              "number": null,
+              "denomination": null,
+              "bonus": "",
+              "types": [
+                "healing"
+              ],
+              "custom": {
+                "enabled": true,
+                "formula": "1"
+              },
+              "scaling": {
+                "mode": "whole",
+                "number": null,
+                "formula": "1"
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0
+          },
+          "dnd5eactivity001": {
+            "_id": "dnd5eactivity001",
+            "type": "utility",
+            "name": "Cure Disease and Poison",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "Target cannot be Undead or a Construct.",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "target": "",
+                  "value": "5",
+                  "scaling": {
+                    "mode": "amount",
+                    "formula": "5"
+                  }
+                }
+              ],
+              "scaling": {
+                "allowed": true,
+                "max": "floor(@item.uses.value / 5)"
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "touch",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": ""
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": false,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "roll": {
+              "prompt": false,
+              "visible": false
+            }
+          }
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "lay-on-hands",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.OdrvL3afwLOPeuYZ",
+          "advancementOrigin": "rTdw0fzd5AIwQ9fC.HL6Kwpmrsz5yqmBK",
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/magic/light/orbs-hand-gray.webp",
+      "effects": [],
+      "folder": "01K0hSSl7NQjYLb8",
+      "sort": 0,
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.OdrvL3afwLOPeuYZ",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160271722,
+        "modifiedTime": 1741160334206,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "name": "Fighting Style",
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>You adopt a particular style of fighting as your specialty. Choose one of the following options from the appropriate class list. You can't take a Fighting Style option more than once, even if you later get to choose again.</p>\n<p>@UUID[Compendium.dnd5e.classfeatures.Item.zSlV0O2rQMdoq6pB]{Defense}</p>\n<p>@UUID[Compendium.dnd5e.classfeatures.Item.hCop9uJrWhF1QPb4]{Dueling}</p>\n<p>@UUID[Compendium.dnd5e.classfeatures.Item.3Nc6u9pyStByuJsm]{Great Weapon Fighting}</p>\n<p>@UUID[Compendium.dnd5e.classfeatures.Item.06NVMYf58Z76O85O]{Protection}</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "requirements": "Paladin 2",
+        "properties": [],
+        "activities": {},
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "fighting-style",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.Ho7dVxBlOYFlfBHk",
+          "advancementOrigin": "rTdw0fzd5AIwQ9fC.RwqEtAP5aJqHIW5J"
+        }
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/skills/melee/weapons-crossed-daggers-orange.webp",
+      "effects": [],
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.Ho7dVxBlOYFlfBHk",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160334214,
+        "modifiedTime": 1741160334214,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      },
+      "folder": "01K0hSSl7NQjYLb8",
+      "sort": 0,
+      "_id": "nWCBWQBjKvHTvA6O"
+    },
+    {
+      "_id": "q948hOXiMi5v8gEH",
+      "name": "Spellcasting",
+      "type": "feat",
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/magic/symbols/cog-shield-white-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>By 2nd level, you have learned to draw on divine magic through meditation and prayer to cast spells as a cleric does.</p>\n<h5>Preparing and Casting Spells</h5>\n<p>The Paladin table shows how many spell slots you have to cast your spells. To cast one of your paladin spells of 1st level or higher, you must expend a slot of the spell's level or higher. You regain all expended spell slots when you finish a long rest.</p>\n<p>You prepare the list of paladin spells that are available for you to cast, choosing from the paladin spell list. When you do so, choose a number of paladin spells equal to your Charisma modifier + half your paladin level, rounded down (minimum of one spell). The spells must be of a level for which you have spell slots.</p>\n<p>For example, if you are a 5th-level paladin, you have four 1st-level and two 2nd-level spell slots. With a Charisma of 14, your list of prepared spells can include four spells of 1st or 2nd level, in any combination. If you prepare the 1st-level spell cure wounds, you can cast it using a 1st-level or a 2ndlevel slot. Casting the spell doesn't remove it from your list of prepared spells.</p>\n<p>You can change your list of prepared spells when you finish a long rest. Preparing a new list of paladin spells requires time spent in prayer and meditation: at least 1 minute per spell level for each spell on your list.</p>\n<h5>Spellcasting Ability</h5>\n<p>Charisma is your spellcasting ability for your paladin spells, since their power derives from the strength of your convictions. You use your Charisma whenever a spell refers to your spellcasting ability. In addition, you use your Charisma modifier when setting the saving throw DC for a paladin spell you cast and when making an attack roll with one.</p>\n<p><strong>Spell save DC</strong> = 8 + your proficiency bonus + your Charisma modifier</p>\n<p><strong>Spell attack modifier </strong>= your proficiency bonus + your Charisma modifier</p>\n<h5>Spellcasting Focus</h5>\n<p>You can use a holy symbol as a spellcasting focus for your paladin spells.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "requirements": "Paladin 2",
+        "properties": [],
+        "activities": {},
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "spellcasting",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "effects": [],
+      "folder": "01K0hSSl7NQjYLb8",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.ihoQHsmVZlyDbPhX",
+          "advancementOrigin": "rTdw0fzd5AIwQ9fC.RwqEtAP5aJqHIW5J"
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.ihoQHsmVZlyDbPhX",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160334214,
+        "modifiedTime": 1741160334214,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "xJtdXcvvXYRdsYPv",
+      "name": "Divine Smite",
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Starting at 2nd level, when you hit a creature with a melee weapon attack, you can expend one spell slot to deal radiant damage to the target, in addition to the weapon's damage.</p><p>The extra damage is 2d8 for a 1st-level spell slot, plus 1d8 for each spell level higher than 1st, to a maximum of 5d8. The damage increases by 1d8 if the target is an undead or a fiend.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "requirements": "Paladin 2",
+        "properties": [],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "damage",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": ""
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "damage": {
+              "critical": {
+                "allow": false,
+                "bonus": ""
+              },
+              "parts": [
+                {
+                  "number": 2,
+                  "denomination": 8,
+                  "bonus": "",
+                  "types": [
+                    "radiant"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "whole",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0
+          },
+          "dnd5eactivity200": {
+            "_id": "dnd5eactivity200",
+            "type": "damage",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": ""
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "damage": {
+              "critical": {
+                "allow": false,
+                "bonus": ""
+              },
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 8,
+                  "bonus": "",
+                  "types": [],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "whole",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0
+          }
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "divine-smite",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.ySMPQ6zNSlvkrl2f",
+          "advancementOrigin": "rTdw0fzd5AIwQ9fC.RwqEtAP5aJqHIW5J"
+        }
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/skills/melee/weapons-crossed-swords-yellow-teal.webp",
+      "effects": [],
+      "folder": "01K0hSSl7NQjYLb8",
+      "sort": 0,
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.ySMPQ6zNSlvkrl2f",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160334214,
+        "modifiedTime": 1741160334214,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "lc8SQP3JmKIvIZt1",
+      "name": "Defense",
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>While you are wearing armor, you gain a +1 bonus to AC</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "class",
+          "subtype": "fightingStyle"
+        },
+        "requirements": "Fighter 1, Champion 10, Paladin 2, Ranger 2",
+        "properties": [],
+        "activities": {},
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "defense",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.zSlV0O2rQMdoq6pB",
+          "advancementOrigin": "rTdw0fzd5AIwQ9fC.GPzUDRFo5bfrhU1K"
+        }
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/equipment/shield/heater-stone-orange.webp",
+      "effects": [
+        {
+          "_id": "U3so0zDcVt4sIBRz",
+          "flags": {},
+          "changes": [
+            {
+              "key": "system.attributes.ac.bonus",
+              "value": "+1",
+              "mode": 2,
+              "priority": null
+            }
+          ],
+          "disabled": false,
+          "duration": {
+            "startTime": 0,
+            "seconds": null,
+            "combat": null,
+            "rounds": null,
+            "turns": null,
+            "startRound": null,
+            "startTurn": null
+          },
+          "origin": "Item.4mQUDmiDBePkQD6Y",
+          "tint": "#ffffff",
+          "transfer": true,
+          "name": "Fighting Style: Defense",
+          "description": "",
+          "statuses": [],
+          "_stats": {
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "coreVersion": "12.331",
+            "systemId": "dnd5e",
+            "systemVersion": "4.3.5",
+            "createdTime": null,
+            "modifiedTime": null,
+            "lastModifiedBy": null
+          },
+          "img": "icons/equipment/shield/heater-stone-orange.webp",
+          "type": "base",
+          "system": {},
+          "sort": 0
+        }
+      ],
+      "folder": "159EPyqZTcus1HNJ",
+      "sort": 0,
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.zSlV0O2rQMdoq6pB",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160334214,
+        "modifiedTime": 1741160334214,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "b4TSE42reJGeXADY",
+      "name": "Divine Health",
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>By 3rd level, the divine magic flowing through you makes you immune to disease.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "requirements": "Paladin 3",
+        "properties": [],
+        "activities": {},
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "divine-health",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.dY9yrqkyEDuF0CG2",
+          "advancementOrigin": "rTdw0fzd5AIwQ9fC.ki8eEksoSjfOHDcF"
+        }
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/magic/life/cross-worn-green.webp",
+      "effects": [],
+      "folder": "01K0hSSl7NQjYLb8",
+      "sort": 0,
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.dY9yrqkyEDuF0CG2",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160334214,
+        "modifiedTime": 1741160334214,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "RlLvUNS0oCrFKn1N",
+      "name": "Sacred Oath",
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>When you reach 3rd level, you swear the oath that binds you as a paladin forever. Up to this time you have been in a preparatory stage, committed to the path but not yet sworn to it. Now you choose an oath, such as the Oath of Devotion.</p>\n<p>Your choice grants you features at 3rd level and again at 7th, 15th, and 20th level. Those features include oath spells and the Channel Divinity feature.</p>\n<h5>Oath Spells</h5>\n<p>Each oath has a list of associated spells. You gain access to these spells at the levels specified in the oath description. Once you gain access to an oath spell, you always have it prepared. Oath spells don't count against the number of spells you can prepare each day.</p>\n<p>If you gain an oath spell that doesn't appear on the paladin spell list, the spell is nonetheless a paladin spell for you.</p>\n<h5>Channel Divinity</h5>\n<p>See @UUID[Compendium.dnd5e.classfeatures.Item.8M7uOPhbTxoxxJSo]{Channel Divinity}.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "requirements": "Paladin 3",
+        "properties": [],
+        "activities": {},
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "sacred-oath",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "sort": 0,
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.olAqNsUTIef9x8xC",
+          "advancementOrigin": "rTdw0fzd5AIwQ9fC.ki8eEksoSjfOHDcF"
+        }
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/sundries/documents/document-sealed-red-yellow.webp",
+      "effects": [],
+      "folder": "01K0hSSl7NQjYLb8",
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.olAqNsUTIef9x8xC",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160334214,
+        "modifiedTime": 1741160334214,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "TPu5OaTSTWIpRxAs",
+      "name": "Channel Divinity",
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Your oath allows you to channel divine energy to fuel magical effects. Each Channel Divinity option provided by your oath explains how to use it.</p><p>When you use your Channel Divinity, you choose which option to use. You must then finish a short or long rest to use your Channel Divinity again.</p><p>Some Channel Divinity effects require saving throws. When you use such an effect from this class, the DC equals your paladin spell save DC.</p><section class=\"secret foundry-note\" id=\"secret-zMJG0jvMiZEEkLfI\"><p><strong>Foundry Note</strong></p><p>Use this to track all the various uses of Channel Divinity for the paladin.</p></section>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "1",
+          "recovery": [
+            {
+              "period": "sr",
+              "type": "recoverAll"
+            }
+          ],
+          "spent": 0
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "requirements": "Paladin 3",
+        "properties": [],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "special",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "target": "",
+                  "value": "1",
+                  "scaling": {
+                    "mode": "",
+                    "formula": ""
+                  }
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": ""
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0
+          }
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "channel-divinity",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.8M7uOPhbTxoxxJSo",
+          "advancementOrigin": "rTdw0fzd5AIwQ9fC.ki8eEksoSjfOHDcF"
+        }
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/magic/fire/projectile-wave-arrow.webp",
+      "effects": [],
+      "folder": "01K0hSSl7NQjYLb8",
+      "sort": 0,
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.8M7uOPhbTxoxxJSo",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160334214,
+        "modifiedTime": 1741160334214,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "name": "Oath of Devotion",
+      "type": "subclass",
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/magic/holy/saint-glass-portrait-halo.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Oath of Devotion binds a paladin to the loftiest ideals of justice, virtue, and order. Sometimes called cavaliers, white knights, or holy warriors, these paladins meet the ideal of the knight in shining armor, acting with honor in pursuit of justice and the greater good. They hold themselves to the highest standards of conduct, and some, for better or worse, hold the rest of the world to the same standards. Many who swear this oath are devoted to gods of law and good and use their gods' tenets as the measure of their devotion. They hold angels—the perfect servants of good—as their ideals, and incorporate images of angelic wings into their helmets or coats of arms. </p><h4>Tenets of Devotion</h4><p>Though the exact words and strictures of the Oath of Devotion vary, paladins of this oath share these tenets.</p><p><strong>Honesty.</strong> Don't lie or cheat. Let your word be your promise.</p><p><strong>Courage.</strong> Never fear to act, though caution is wise.</p><p><strong>Compassion.</strong> Aid others, protect the weak, and punish those who threaten them. Show mercy to your foes, but temper it with wisdom.</p><p><strong>Honor.</strong> Treat others with fairness, and let your honorable deeds be an example to them. Do as much good as possible while causing the least amount of harm.</p><p><strong>Duty.</strong> Be responsible for your actions and their consequences, protect those entrusted to your care, and obey those who have just authority over you.</p><h4>Oath Spells</h4><p>You gain oath spells at the paladin levels listed.</p><table><caption>Oath of Devotion Spells</caption><thead><tr><td>Paladin Level</td><td>Spells</td></tr></thead><tbody><tr><td>3rd</td><td>@UUID[Compendium.dnd5e.spells.Item.xmDBqZhRVrtLP8h2]{Protection from Evil and Good}, @UUID[Compendium.dnd5e.spells.Item.gvdA9nPuWLck4tBl]{Sanctuary}</td></tr><tr><td>5th</td><td>@UUID[Compendium.dnd5e.spells.Item.F0GsG0SJzsIOacwV]{Lesser Restoration}, @UUID[Compendium.dnd5e.spells.Item.CylBa7jR8DSbo8Z3]{Zone of Truth}</td></tr><tr><td>9th</td><td>@UUID[Compendium.dnd5e.spells.Item.ZU9d6woBdUP8pIPt]{Beacon of Hope}, @UUID[Compendium.dnd5e.spells.Item.15Fa6q1nH27XfbR8]{Dispel Magic}</td></tr><tr><td>13th</td><td>@UUID[Compendium.dnd5e.spells.Item.da0a1t2FqaTjRZGT]{Freedom of Movement}, @UUID[Compendium.dnd5e.spells.Item.TgHsuhNasPbhu8MO]{Guardian of Faith}</td></tr><tr><td>17th</td><td>@UUID[Compendium.dnd5e.spells.Item.d54VDyFulD9xxY7J]{Commune}, @UUID[Compendium.dnd5e.spells.Item.5e1xTohkzqFqbYH4]{Flame Strike}</td></tr></tbody></table>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "oath-of-devotion",
+        "classIdentifier": "paladin",
+        "advancement": [
+          {
+            "_id": "x139gm4ohldqu68j",
+            "type": "ItemGrant",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.xNN0JMKqlG4hKVYu",
+                  "optional": false
+                },
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.ZdwGlsJNtc7pGFCd",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              }
+            },
+            "value": {
+              "added": {
+                "VfcAP7G6otACG9vU": "Compendium.dnd5e.classfeatures.Item.xNN0JMKqlG4hKVYu",
+                "URmBg2e1u3JJtA6l": "Compendium.dnd5e.classfeatures.Item.ZdwGlsJNtc7pGFCd"
+              }
+            },
+            "level": 3,
+            "title": "Features"
+          },
+          {
+            "_id": "enzzft6q7timpcg1",
+            "type": "ItemGrant",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.M2DxVsgLeZgXOznT",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              }
+            },
+            "value": {},
+            "level": 7,
+            "title": "Features"
+          },
+          {
+            "_id": "lnfks5j00ywstged",
+            "type": "ItemGrant",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.ZHJyYrqMYSLub4RY",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              }
+            },
+            "value": {},
+            "level": 15,
+            "title": "Features"
+          },
+          {
+            "_id": "5a99kkfabklcl06a",
+            "type": "ItemGrant",
+            "configuration": {
+              "items": [
+                {
+                  "uuid": "Compendium.dnd5e.classfeatures.ANE5gjojvhNEagzz",
+                  "optional": false
+                }
+              ],
+              "optional": false,
+              "spell": {
+                "ability": [],
+                "preparation": "",
+                "uses": {
+                  "max": "",
+                  "per": "",
+                  "requireSlot": false
+                }
+              }
+            },
+            "value": {},
+            "level": 20,
+            "title": "Features"
+          }
+        ],
+        "spellcasting": {
+          "progression": "none",
+          "ability": "",
+          "preparation": {}
+        }
+      },
+      "effects": [],
+      "folder": "HwOKB9LPw4dA10L8",
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.subclasses.Item.sZ86mbX8D5PfYuhl",
+          "advancementOrigin": "rTdw0fzd5AIwQ9fC.n22j60yn24fqr3sy"
+        }
+      },
+      "_id": "icw91HorxyR7160s",
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.subclasses.Item.sZ86mbX8D5PfYuhl",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160334214,
+        "modifiedTime": 1741160334214,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "VfcAP7G6otACG9vU",
+      "name": "Channel Divinity: Sacred Weapon",
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>As an action, you can imbue one weapon that you are holding with positive energy, using your Channel Divinity.</p><p>For 1 minute, you add your Charisma modifier to attack rolls made with that weapon (with a minimum bonus of +1). The weapon also emits bright light in a 20-foot radius and dim light 20 feet beyond that. If the weapon is not already magical, it becomes magical for the duration.</p><p>You can end this effect on your turn as part of any other action. If you are no longer holding or carrying this weapon, or if you fall unconscious, this effect ends.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "type": {
+          "value": "class",
+          "subtype": "channelDivinity"
+        },
+        "requirements": "Oath of Devotion 3",
+        "properties": [],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "target": "Compendium.dnd5e.classfeatures.Item.8M7uOPhbTxoxxJSo",
+                  "value": "1",
+                  "scaling": {
+                    "mode": "",
+                    "formula": ""
+                  }
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "1",
+              "units": "minute",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "20",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": ""
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0
+          }
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "channel-divinity-sacred-weapon",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.xNN0JMKqlG4hKVYu",
+          "advancementOrigin": "icw91HorxyR7160s.x139gm4ohldqu68j"
+        }
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/skills/melee/weapons-crossed-swords-yellow-teal.webp",
+      "effects": [],
+      "folder": "W9eAXfvupEhLWmZ4",
+      "sort": 0,
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.xNN0JMKqlG4hKVYu",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160334214,
+        "modifiedTime": 1741160334214,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "URmBg2e1u3JJtA6l",
+      "name": "Channel Divinity: Turn the Unholy",
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>As an action, you present your holy symbol and speak a prayer censuring fiends and undead, using your Channel Divinity. Each fiend or undead that can see or hear you within 30 feet of you must make a Wisdom saving throw. If the creature fails its saving throw, it is turned for 1 minute or until it takes damage.</p><p>A turned creature must spend its turns trying to move as far away from you as it can, and it can't willingly move to a space within 30 feet of you. It also can't take reactions. For its action, it can use only the Dash action or try to escape from an effect that prevents it from moving. If there's nowhere to move, the creature can use the Dodge action.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "type": {
+          "value": "class",
+          "subtype": "channelDivinity"
+        },
+        "requirements": "Oath of Devotion 3",
+        "properties": [],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "target": "Compendium.dnd5e.classfeatures.Item.8M7uOPhbTxoxxJSo",
+                  "value": "1",
+                  "scaling": {
+                    "mode": "",
+                    "formula": ""
+                  }
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "1",
+              "units": "minute",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "30",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": ""
+              },
+              "affects": {
+                "count": "",
+                "type": "self",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "cha",
+                "formula": ""
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0
+          }
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "channel-divinity-turn-the-unholy",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.ZdwGlsJNtc7pGFCd",
+          "advancementOrigin": "icw91HorxyR7160s.x139gm4ohldqu68j"
+        }
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/magic/fire/explosion-embers-evade-silhouette.webp",
+      "effects": [],
+      "folder": "W9eAXfvupEhLWmZ4",
+      "sort": 0,
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.ZdwGlsJNtc7pGFCd",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160334214,
+        "modifiedTime": 1741160334214,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "hx3KAQP32N7dJBES",
+      "name": "Extra Attack",
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>You can attack twice, instead of once, whenever you take the Attack action on your turn.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "requirements": "Barbarian 5, Monk 5, Paladin 5, Ranger 5",
+        "properties": [],
+        "activities": {},
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "extra-attack",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.XogoBnFWmCAHXppo",
+          "advancementOrigin": "rTdw0fzd5AIwQ9fC.WaoJQunO9O2pdC1g"
+        }
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/skills/melee/spear-tips-triple-orange.webp",
+      "effects": [],
+      "folder": "xbkk47SgKlAdWQEA",
+      "sort": 0,
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.XogoBnFWmCAHXppo",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160334214,
+        "modifiedTime": 1741160334214,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    },
+    {
+      "_id": "AP6pZjDPtxQIhwVZ",
+      "name": "Aura of Protection",
+      "ownership": {
+        "default": 0,
+        "zJSbxemSUqF4nj0Q": 3
+      },
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Starting at 6th level, whenever you or a friendly creature within 10 feet of you must make a saving throw, the creature gains a bonus to the saving throw equal to your Charisma modifier (with a minimum bonus of +1). You must be conscious to grant this bonus.</p><p> At 18th level, the range of this aura increases to 30 feet.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "requirements": "Paladin 6",
+        "properties": [],
+        "activities": {},
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "identifier": "aura-of-protection",
+        "advancement": [],
+        "cover": null,
+        "crewed": false
+      },
+      "flags": {
+        "dnd5e": {
+          "sourceId": "Compendium.dnd5e.classfeatures.Item.carGDhkIdoduTC0I",
+          "advancementOrigin": "rTdw0fzd5AIwQ9fC.Gs5c5ciErsG3NDyW"
+        }
+      },
+      "img": "https://assets.forge-vtt.com/bazaar/core/icons/magic/air/wind-tornado-wall-blue.webp",
+      "effects": [],
+      "folder": "01K0hSSl7NQjYLb8",
+      "sort": 0,
+      "_stats": {
+        "duplicateSource": null,
+        "compendiumSource": "Compendium.dnd5e.classfeatures.Item.carGDhkIdoduTC0I",
+        "coreVersion": "12.331",
+        "systemId": "dnd5e",
+        "systemVersion": "4.3.5",
+        "createdTime": 1741160334214,
+        "modifiedTime": 1741160334214,
+        "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+      }
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "flags": {
+    "exportSource": {
+      "world": "test-world-5e",
+      "system": "dnd5e",
+      "coreVersion": "12.331",
+      "systemVersion": "4.3.5"
+    }
+  },
+  "_stats": {
+    "coreVersion": "12.331",
+    "systemId": "dnd5e",
+    "systemVersion": "4.3.5",
+    "createdTime": 1741160153240,
+    "modifiedTime": 1741164164843,
+    "lastModifiedBy": "zJSbxemSUqF4nj0Q"
+  }
+}

@@ -35,7 +35,6 @@ def testSingleFile():
 
         print(result)
 
-
 def testACDirectory():
     global file, json_data, result
     directory = root / 'resources/playercharacters/ACTest'
@@ -71,7 +70,18 @@ def testProfDirectory():
                 prof = dataGatherer.getProfBonus(json_data)
                 print(f'{json_data["name"]}:  {prof}')
 
-##testACDirectory()
-testHPDirectory()
-testProfDirectory()
+def testSTDirectory():
+    global file, json_data, result
+    directory = root / 'resources/playercharacters/STTest'
+    for entry in scandir(directory):
+        if entry.is_file() & entry.name.endswith('.json'):
+            with open(entry) as file:
+                json_data = json.load(file)
 
+                saving_throws = dataGatherer.getSavingThrows(json_data)
+                print(f'{json_data["name"]}:  {saving_throws}')
+
+##testACDirectory()
+##testHPDirectory()
+##testProfDirectory()
+testSTDirectory()
